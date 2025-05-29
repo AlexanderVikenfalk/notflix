@@ -1,6 +1,3 @@
-export const Header = () =>{
-    return (
-        <header>
-        </header>
-    )
+export const Header = () => {
+    return <header></header>
 }

@@ -1,6 +1,11 @@
-import { createBrowserRouter } from 'react-router-dom';
-import  App  from "./App"
-import { MovieDetailsPage, FavoritesPage, MovieListPage, NotFoundPage } from './pages';
+import { createBrowserRouter } from 'react-router-dom'
+import App from './App'
+import {
+    MovieDetailsPage,
+    FavoritesPage,
+    MovieListPage,
+    NotFoundPage,
+} from './pages'
 
 export const router = createBrowserRouter([
     {
@@ -13,4 +18,4 @@ export const router = createBrowserRouter([
             { path: '*', element: <NotFoundPage /> },
         ],
     },
-]);
+])

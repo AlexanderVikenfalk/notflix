@@ -1,4 +1,3 @@
 export const MovieDetailsPage = () => {
-    return <div>
-    </div>
+    return <div></div>
 }
