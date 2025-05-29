@@ -6,7 +6,11 @@ export const useFetch = <T = unknown,>(apiPath: string, queryTerm = '') => {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            setData(dummyData.results as T)
+            const filtered = dummyData.results.filter((movie) =>
+                movie.title.toLowerCase().includes(queryTerm.toLowerCase())
+            )
+
+            setData({ ...dummyData, results: filtered } as T)
         }, 300)
 
         return () => clearTimeout(timer)
