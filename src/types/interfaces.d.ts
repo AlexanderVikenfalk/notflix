@@ -1,7 +1,3 @@
-interface CardProps {
-    movie: MovieSearchResult
-}
-
 export interface MovieSearchResponse {
     dates: {
         maximum: string
@@ -30,11 +26,14 @@ export interface MovieSearchResult {
     original_language: string
 }
 
-export interface MovieDetail extends MovieSearchResult {
-    plot: string
-    director: string
-    cast: CastMember[]
-    genres: Genre[]
+export interface MovieDetails extends MovieSearchResult {
+    runtime: number
+    budget: number
+    revenue: number
+    imdb_id: string
+    genres: { id: number; name: string }[]
+    director?: string
+    cast?: string[]
 }
 
 export interface CastMember {
