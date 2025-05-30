@@ -9,7 +9,7 @@ interface MovieListProps {
     apiPath: string
 }
 
-export const MovieListPage = ({ apiPath }: MovieListProps) => {
+const MovieListPage = ({ apiPath }: MovieListProps) => {
     const { data } = useFetch<MovieSearchResponse>(apiPath)
     const movies = data?.results ?? []
 
@@ -27,3 +27,5 @@ export const MovieListPage = ({ apiPath }: MovieListProps) => {
         </main>
     )
 }
+
+export default MovieListPage

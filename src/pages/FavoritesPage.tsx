@@ -1,3 +1,5 @@
-export const FavoritesPage = () => {
+const FavoritesPage = () => {
     return <div>Favorites</div>
 }
+
+export default FavoritesPage

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useFetch } from '@/hooks/useFetch'
 import { useTitle } from '@/hooks/useTitle'
 
-export const MovieDetailsPage = () => {
+const MovieDetailsPage = () => {
     const { id } = useParams<{ id: string }>()
     const { data: movie } = useFetch<MovieDetails>(`movie/${id}`)
     useTitle(movie?.title ?? 'Loading...')
@@ -91,3 +91,5 @@ export const MovieDetailsPage = () => {
         </main>
     )
 }
+
+export default MovieDetailsPage

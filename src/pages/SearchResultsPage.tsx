@@ -4,7 +4,7 @@ import { useTitle } from '../hooks/useTitle'
 import { Card } from '../components/Card'
 import type { MovieSearchResponse } from '@/types/interfaces'
 
-export const SearchResultsPage = ({ apiPath }: { apiPath: string }) => {
+const SearchResultsPage = ({ apiPath }: { apiPath: string }) => {
     const [searchParams] = useSearchParams()
     const queryTerm = searchParams.get('q') ?? ''
 
@@ -32,3 +32,5 @@ export const SearchResultsPage = ({ apiPath }: { apiPath: string }) => {
         </main>
     )
 }
+
+export default SearchResultsPage
