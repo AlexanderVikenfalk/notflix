@@ -3,12 +3,12 @@ import { Header, Footer } from './components'
 
 function App() {
     return (
-        <div className="App">
-            <Header />
-            <main>
-                <Outlet />
-            </main>
-            <Footer />
+        <div className="bg-blue-950 h-screen">
+                <Header />
+                <main>
+                    <Outlet />
+                </main>
+                <Footer />
         </div>
     )
 }
