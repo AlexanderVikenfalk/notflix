@@ -5,6 +5,13 @@ import { router } from './router'
 
 import './styles/main.css'
 
+if (import.meta.env.DEV) {
+    (async () => {
+        const { worker } = await import('./mocks/browser')
+        await worker.start()
+    })()
+}
+
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
         <RouterProvider router={router} />
