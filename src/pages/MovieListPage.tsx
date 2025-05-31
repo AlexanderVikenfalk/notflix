@@ -1,26 +1,29 @@
-import { useFetch } from '../hooks/useFetch'
-import { useTitle } from '../hooks/useTitle'
-import { Card } from '../components/Card'
+import { useEffect } from 'react'
+import useApi from '@/hooks/useApi'
+import { useTitle } from '@/hooks/useTitle'
+import { MovieCard } from '@/components/MovieCard.tsx'
+import { getMovies } from '@/services/movieService'
+import type { MovieSearchResult } from '@/types/interfaces'
 
-import type { MovieSearchResponse } from '@/types/interfaces'
+const MovieListPage = () => {
+    const { data, request } = useApi(getMovies)
 
-interface MovieListProps {
-    title: string
-    apiPath: string
-}
-
-const MovieListPage = ({ apiPath }: MovieListProps) => {
-    const { data } = useFetch<MovieSearchResponse>(apiPath)
-    const movies = data?.results ?? []
+    useEffect(() => {
+        (async () => {
+            await request()
+        })()
+    }, [])
 
     useTitle('Popular')
+
+    const movies = (data as MovieSearchResult[]) || []
 
     return (
         <main>
             <section className="max-w-7xl mx-auto py-7">
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 px-4">
-                    {movies.map((movie) => (
-                        <Card key={movie.id} movie={movie} />
+                    {movies.map((movie: MovieSearchResult) => (
+                        <MovieCard key={movie.id} movie={movie} />
                     ))}
                 </div>
             </section>

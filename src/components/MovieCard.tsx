@@ -5,7 +5,7 @@ interface CardProps {
     movie: MovieSearchResult
 }
 
-export const Card = ({ movie }: CardProps) => {
+export const MovieCard = ({ movie }: CardProps) => {
     return (
         <div key={movie.id} className="group cursor-pointer">
             <Link to={`/movie/${movie.id}`}>

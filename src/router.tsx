@@ -15,9 +15,7 @@ export const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                element:
-                    <MovieListPage title="Popular" apiPath="movie/popular" />
-                ,
+                element: <MovieListPage />,
             },
             {
                 path: 'movie/:id',
@@ -29,9 +27,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'search',
-                element:
-                    <SearchResultsPage apiPath="search/movie" />
-                ,
+                element: <SearchResultsPage apiPath="search/movie" />,
             },
             {
                 path: '*',

@@ -1,7 +1,7 @@
 import { useSearchParams } from 'react-router-dom'
 import { useFetch } from '../hooks/useFetch'
 import { useTitle } from '../hooks/useTitle'
-import { Card } from '../components/Card'
+import { MovieCard } from '../components/MovieCard.tsx'
 import type { MovieSearchResponse } from '@/types/interfaces'
 
 const SearchResultsPage = ({ apiPath }: { apiPath: string }) => {
@@ -25,7 +25,7 @@ const SearchResultsPage = ({ apiPath }: { apiPath: string }) => {
             <section className="max-w-7xl mx-auto py-7">
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 px-4">
                     {movies.map((movie) => (
-                        <Card key={movie.id} movie={movie} />
+                        <MovieCard key={movie.id} movie={movie} />
                     ))}
                 </div>
             </section>
