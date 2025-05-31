@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import useApi from '@/hooks/useApi'
 import { getMovieById } from '@/services/movieService'
 // import { useTitle } from '@/hooks/useTitle'
-import { FavoriteButton } from '@/components'
+import { FavoritesToggleButton } from '@/components'
 import { useEffect } from 'react'
 
 const MovieDetailsPage = () => {
@@ -74,7 +74,7 @@ const MovieDetailsPage = () => {
                         )}
                     </div>
 
-                    <FavoriteButton movie={movie} />
+                    <FavoritesToggleButton movie={movie} />
 
                     <p className="text-base leading-relaxed text-gray-200 mb-6">
                         {movie.overview}

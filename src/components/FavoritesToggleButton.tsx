@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
-import HeartIcon from '@/assets/svg/heart-icon.svg?react'
+// import  HeartIcon  from '@/assets/svg'
+import HeartIcon from '@/assets/svg/heart.svg?react'
 import { useFavorites } from '@/context/FavoritesContext'
 import type { MovieDetails } from '@/types/interfaces'
 
-export const FavoriteButton = ({ movie }: { movie: MovieDetails }) => {
+export const FavoritesToggleButton = ({ movie }: { movie: MovieDetails }) => {
     const { favorites, addFavorite, removeFavorite } = useFavorites()
     const [isAnimating, setIsAnimating] = useState(false)
     const [added, setAdded] = useState(false)
