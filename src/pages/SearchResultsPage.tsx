@@ -1,15 +1,26 @@
 import { useSearchParams } from 'react-router-dom'
-import { useFetch } from '../hooks/useFetch'
 import { useTitle } from '../hooks/useTitle'
-import { MovieCard } from '../components/MovieCard.tsx'
+import { MovieCard } from '../components/MovieCard'
 import type { MovieSearchResponse } from '@/types/interfaces'
+import {useEffect} from "react";
+import {searchMovies} from "@/services/movieService";
+import useApi from "@/hooks/useApi.tsx";
 
 const SearchResultsPage = ({ apiPath }: { apiPath: string }) => {
     const [searchParams] = useSearchParams()
     const queryTerm = searchParams.get('q') ?? ''
 
-    const { data } = useFetch<MovieSearchResponse>(apiPath, queryTerm)
-    const movies = data?.results ?? []
+    const { data, request } = useApi(searchMovies)
+
+    useEffect(() => {
+        if (queryTerm) {
+            (async () => {
+                await  request(queryTerm)
+            })()
+        }
+    }, [apiPath])
+
+    const movies = (data as MovieSearchResponse)?.results ?? []
 
     useTitle(`Search result for ${queryTerm}`)
 

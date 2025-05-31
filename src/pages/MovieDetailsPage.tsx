@@ -1,12 +1,24 @@
-import type { MovieDetails } from '@/types/interfaces'
+import type {MovieDetails} from '@/types/interfaces'
 import { useParams } from 'react-router-dom'
-import { useFetch } from '@/hooks/useFetch'
-import { useTitle } from '@/hooks/useTitle'
+import useApi from '@/hooks/useApi'
+import { getMovieById } from '@/services/movieService'
+// import { useTitle } from '@/hooks/useTitle'
+import {useEffect} from "react";
 
 const MovieDetailsPage = () => {
     const { id } = useParams<{ id: string }>()
-    const { data: movie } = useFetch<MovieDetails>(`movie/${id}`)
-    useTitle(movie?.title ?? 'Loading...')
+    const { data, request } = useApi(getMovieById)
+
+    useEffect(() => {
+        if (id) {
+            (async () => {
+                await request(id)
+            })()
+        }
+    }, [id])
+
+    // useTitle(movie?.title ?? 'Loading...')
+    const movie = (data as MovieDetails) || []
 
     if (!movie) {
         return <p className="text-white p-4">Loading movie details...</p>
