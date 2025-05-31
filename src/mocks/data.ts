@@ -1,5 +1,6 @@
 import type { MovieDetails, MovieSearchResponse } from '@/types/interfaces'
 
+// TODO: Add movieDetails for all movies
 export const movieDetails: MovieDetails = {
     id: 552524,
     title: 'Lilo & Stitch',
