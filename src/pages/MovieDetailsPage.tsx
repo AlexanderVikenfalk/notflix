@@ -1,9 +1,10 @@
-import type {MovieDetails} from '@/types/interfaces'
+import type { MovieDetails } from '@/types/interfaces'
 import { useParams } from 'react-router-dom'
 import useApi from '@/hooks/useApi'
 import { getMovieById } from '@/services/movieService'
 // import { useTitle } from '@/hooks/useTitle'
-import {useEffect} from "react";
+import { FavoriteButton } from '@/components'
+import { useEffect } from 'react'
 
 const MovieDetailsPage = () => {
     const { id } = useParams<{ id: string }>()
@@ -11,7 +12,7 @@ const MovieDetailsPage = () => {
 
     useEffect(() => {
         if (id) {
-            (async () => {
+            ;(async () => {
                 await request(id)
             })()
         }
@@ -50,9 +51,9 @@ const MovieDetailsPage = () => {
                             </span>
                         )}
                         {movie.runtime && <span>{movie.runtime} min</span>}
-                        {movie.genres?.map((g) => (
+                        {movie.genres?.map((g, index) => (
                             <span
-                                key={g.id}
+                                key={g.id ?? `${g.name}-${index}`}
                                 className="bg-gray-800 rounded-full px-3 py-1 text-xs"
                             >
                                 {g.name}
@@ -72,6 +73,8 @@ const MovieDetailsPage = () => {
                             </span>
                         )}
                     </div>
+
+                    <FavoriteButton movie={movie} />
 
                     <p className="text-base leading-relaxed text-gray-200 mb-6">
                         {movie.overview}
