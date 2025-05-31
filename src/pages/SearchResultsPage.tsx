@@ -2,9 +2,9 @@ import { useSearchParams } from 'react-router-dom'
 import { useTitle } from '../hooks/useTitle'
 import { MovieCard } from '../components/MovieCard'
 import type { MovieSearchResponse } from '@/types/interfaces'
-import {useEffect} from "react";
-import {searchMovies} from "@/services/movieService";
-import useApi from "@/hooks/useApi.tsx";
+import { useEffect } from 'react'
+import { searchMovies } from '@/services/movieService'
+import useApi from '@/hooks/useApi.tsx'
 
 const SearchResultsPage = ({ apiPath }: { apiPath: string }) => {
     const [searchParams] = useSearchParams()
@@ -14,8 +14,8 @@ const SearchResultsPage = ({ apiPath }: { apiPath: string }) => {
 
     useEffect(() => {
         if (queryTerm) {
-            (async () => {
-                await  request(queryTerm)
+            ;(async () => {
+                await request(queryTerm)
             })()
         }
     }, [apiPath])

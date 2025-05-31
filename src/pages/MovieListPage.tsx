@@ -9,7 +9,7 @@ const MovieListPage = () => {
     const { data, request } = useApi(getMovies)
 
     useEffect(() => {
-        (async () => {
+        ;(async () => {
             await request()
         })()
     }, [])

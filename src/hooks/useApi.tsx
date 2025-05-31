@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import type { AxiosResponse } from 'axios'
 
-type ApiService<T extends unknown[] = unknown[]> = (...args: T) => Promise<AxiosResponse<unknown>>
+type ApiService<T extends unknown[] = unknown[]> = (
+    ...args: T
+) => Promise<AxiosResponse<unknown>>
 
 const useApi = <T extends unknown[]>(serviceFunction: ApiService<T>) => {
     const [data, setData] = useState<unknown>(null)
