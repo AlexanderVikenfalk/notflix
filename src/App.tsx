@@ -5,7 +5,7 @@ import { Header, Footer, Loader } from '@/components'
 
 function App() {
     return (
-        <div className="bg-blue-950 min-h-screen">
+        <div className="bg-gray-50 dark:bg-gray-950 min-h-screen text-gray-900 dark:text-white">
             <ToastContainer />
             <Header />
             <main>

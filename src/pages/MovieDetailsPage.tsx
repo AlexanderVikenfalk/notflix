@@ -22,11 +22,11 @@ const MovieDetailsPage = () => {
     const movie = (data as MovieDetails) || []
 
     if (!movie) {
-        return <p className="text-white p-4">Loading movie details...</p>
+        return <p className=" p-4">Loading movie details...</p>
     }
 
     return (
-        <main className="bg-[#1c0f0a] min-h-screen text-white">
+        <main className="min-h-screen bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100">
             <section className="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
                 <div className="w-full max-w-md mx-auto lg:mx-0">
                     <img
@@ -39,12 +39,12 @@ const MovieDetailsPage = () => {
                 <div className="lg:col-span-2">
                     <h1 className="text-4xl font-bold mb-2">{movie.title}</h1>
                     {movie.director && (
-                        <p className="text-lg text-gray-300 mb-4">
+                        <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">
                             Directed by {movie.director}
                         </p>
                     )}
 
-                    <div className="flex flex-wrap gap-4 text-sm text-gray-400 mb-6">
+                    <div className="flex flex-wrap gap-4 text-sm text-gray-500 dark:text-gray-400 mb-6">
                         {movie.release_date && (
                             <span>
                                 {new Date(movie.release_date).getFullYear()}
@@ -54,7 +54,7 @@ const MovieDetailsPage = () => {
                         {movie.genres?.map((g, index) => (
                             <span
                                 key={g.id ?? `${g.name}-${index}`}
-                                className="bg-gray-800 rounded-full px-3 py-1 text-xs"
+                                className="bg-gray-200 text-gray-800 dark:bg-gray-800 dark:text-gray-100 rounded-full px-3 py-1 text-xs"
                             >
                                 {g.name}
                             </span>
@@ -63,27 +63,29 @@ const MovieDetailsPage = () => {
 
                     <div className="flex items-center gap-3 mb-6">
                         {movie.vote_average && (
-                            <span className="text-yellow-400 font-semibold text-lg">
+                            <span className="text-yellow-600 dark:text-yellow-400 font-semibold text-lg">
                                 {movie.vote_average.toFixed(1)}
                             </span>
                         )}
                         {movie.vote_count && (
-                            <span className="text-gray-400">
+                            <span className="text-gray-600 dark:text-gray-400">
                                 {movie.vote_count} reviews
                             </span>
                         )}
                     </div>
 
-                    <FavoritesToggleButton movie={movie} />
+                    <div className="mb-4">
+                        <FavoritesToggleButton movie={movie} />
+                    </div>
 
-                    <p className="text-base leading-relaxed text-gray-200 mb-6">
+                    <p className="text-base leading-relaxed text-gray-700 dark:text-gray-200 mb-6">
                         {movie.overview}
                     </p>
 
                     {Array.isArray(movie.cast) && movie.cast.length > 0 && (
                         <div className="mb-4">
                             <h2 className="text-lg font-semibold mb-1">Cast</h2>
-                            <p className="text-gray-300 text-sm">
+                            <p className="text-gray-600 dark:text-gray-300 text-sm">
                                 {movie.cast.join(', ')}
                             </p>
                         </div>
