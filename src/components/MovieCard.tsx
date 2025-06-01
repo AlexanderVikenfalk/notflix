@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import type { MovieSearchResult } from '@/types/interfaces'
 import { Link } from 'react-router-dom'
 
@@ -5,7 +6,7 @@ interface CardProps {
     movie: MovieSearchResult
 }
 
-export const MovieCard = ({ movie }: CardProps) => {
+const MovieCardComponent = ({ movie }: CardProps) => {
     return (
         <div key={movie.id} className="group cursor-pointer">
             <Link to={`/movie/${movie.id}`}>
@@ -27,3 +28,7 @@ export const MovieCard = ({ movie }: CardProps) => {
         </div>
     )
 }
+
+MovieCardComponent.displayName = 'MovieCard'
+
+export const MovieCard = memo(MovieCardComponent)
