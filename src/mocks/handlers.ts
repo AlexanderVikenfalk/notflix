@@ -3,10 +3,35 @@ import { movieDetails, movieSearchResponse } from './data'
 
 export const handlers = [
     // All movies
-    http.get('http://localhost:3000/movies', async () => {
-        // simulate network response
+    http.get('http://localhost:3000/movies', async ({ request }) => {
+        // simulate network request
         await delay(800)
-        return HttpResponse.json(movieSearchResponse.results, { status: 200 })
+
+        // pagination logic
+        const url = new URL(request.url)
+        const pageParam = url.searchParams.get('page')
+        const page = parseInt(pageParam ?? '1', 10)
+        const limit = 20
+        const startIndex = (page - 1) * limit
+        const endIndex = startIndex + limit
+
+        const paginatedResults = movieSearchResponse.results.slice(
+            startIndex,
+            endIndex
+        )
+        const totalResults = movieSearchResponse.results.length
+        const totalPages = Math.ceil(totalResults / limit)
+
+        return HttpResponse.json(
+            {
+                ...movieSearchResponse,
+                results: paginatedResults,
+                total_results: totalResults,
+                total_pages: totalPages,
+                page,
+            },
+            { status: 200 }
+        )
     }),
 
     // Movie details
