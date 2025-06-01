@@ -1,9 +1,9 @@
-import {Link, useNavigate} from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { useDebounce } from '@/hooks/useDebounce'
 import { SearchInput } from './SearchInput'
 import { ThemeSwitcher } from './ThemeSwitcher'
-import {FavoritesPageButton} from './FavoritesPageButton'
+import { FavoritesPageButton } from './FavoritesPageButton'
 
 export const Header = () => {
     const navigate = useNavigate()
@@ -26,7 +26,17 @@ export const Header = () => {
                     notflix
                 </Link>
                 <div className="flex items-center gap-3 w-full max-w-lg">
-                    <SearchInput value={inputValue} onChange={setInputValue} />
+                    <SearchInput
+                        value={inputValue}
+                        onChange={setInputValue}
+                        onSearch={() => {
+                            if (inputValue.trim() !== '') {
+                                navigate(
+                                    `/search?q=${encodeURIComponent(inputValue)}`
+                                )
+                            }
+                        }}
+                    />
                     <ThemeSwitcher />
                     <FavoritesPageButton />
                 </div>

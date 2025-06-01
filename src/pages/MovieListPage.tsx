@@ -8,7 +8,7 @@ import { Pagination } from '@/components/Pagination'
 
 const MovieListPage = () => {
     const [currentPage, setCurrentPage] = useState(1)
-    const { data, request } = useApi(getMovies)
+    const { data, request, loading } = useApi(getMovies)
 
     useTitle('Popular Movies')
 
@@ -26,7 +26,7 @@ const MovieListPage = () => {
     return (
         <main>
             <section className="max-w-7xl mx-auto py-7">
-                {movies.length === 0 && (
+                {!loading && movies.length === 0 && (
                     <p className="text-3xl text-gray-700 dark:text-white">
                         No movies to display
                     </p>
