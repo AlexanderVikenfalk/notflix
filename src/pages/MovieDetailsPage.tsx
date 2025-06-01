@@ -1,8 +1,8 @@
 import type { MovieDetails } from '@/types/interfaces'
 import { useParams } from 'react-router-dom'
 import useApi from '@/hooks/useApi'
+import { useTitle } from '@/hooks/useTitle.tsx'
 import { getMovieById } from '@/services/movieService'
-// import { useTitle } from '@/hooks/useTitle'
 import { FavoritesToggleButton } from '@/components'
 import { useEffect } from 'react'
 
@@ -18,8 +18,8 @@ const MovieDetailsPage = () => {
         }
     }, [id])
 
-    // useTitle(movie?.title ?? 'Loading...')
     const movie = (data as MovieDetails) || []
+    useTitle(movie?.title || 'Loading...')
 
     if (!movie) {
         return <p className=" p-4">Loading movie details...</p>

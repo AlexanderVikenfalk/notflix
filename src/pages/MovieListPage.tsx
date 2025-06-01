@@ -14,7 +14,7 @@ const MovieListPage = () => {
         })()
     }, [])
 
-    useTitle('Popular')
+    useTitle('Popular Movies')
 
     const movies = (data as MovieSearchResult[]) || []
 
