@@ -1,14 +1,17 @@
-import { http, HttpResponse } from 'msw'
+import { delay, http, HttpResponse } from 'msw'
 import { movieDetails, movieSearchResponse } from './data'
 
 export const handlers = [
     // All movies
-    http.get('http://localhost:3000/movies', () => {
+    http.get('http://localhost:3000/movies', async () => {
+        // simulate network response
+        await delay(800)
         return HttpResponse.json(movieSearchResponse.results, { status: 200 })
     }),
 
     // Movie details
-    http.get('http://localhost:3000/movie/:id', ({ params }) => {
+    http.get('http://localhost:3000/movie/:id', async ({ params }) => {
+        await delay(800)
         const { id } = params
 
         if (id === '404') {
@@ -25,7 +28,8 @@ export const handlers = [
     }),
 
     // Search results
-    http.get('http://localhost:3000/search', ({ request }) => {
+    http.get('http://localhost:3000/search', async ({ request }) => {
+        await delay(800)
         const url = new URL(request.url)
         const query = url.searchParams.get('q')?.toLowerCase() ?? ''
 
