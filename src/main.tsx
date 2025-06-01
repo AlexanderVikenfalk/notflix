@@ -4,22 +4,23 @@ import { RouterProvider } from 'react-router-dom'
 import { LoadingProvider } from '@/context/LoadingContext'
 import { FavoritesProvider } from '@/context/FavoritesContext'
 import { router } from './router'
-
 import './styles/main.css'
 
-if (import.meta.env.DEV) {
-    ;(async () => {
+async function prepareApp() {
+    if (import.meta.env.DEV) {
         const { worker } = await import('./mocks/browser')
         await worker.start()
-    })()
+    }
+
+    createRoot(document.getElementById('root')!).render(
+        <StrictMode>
+            <LoadingProvider>
+                <FavoritesProvider>
+                    <RouterProvider router={router} />
+                </FavoritesProvider>
+            </LoadingProvider>
+        </StrictMode>
+    )
 }
 
-createRoot(document.getElementById('root')!).render(
-    <StrictMode>
-        <LoadingProvider>
-            <FavoritesProvider>
-                <RouterProvider router={router} />
-            </FavoritesProvider>
-        </LoadingProvider>
-    </StrictMode>
-)
+prepareApp()
