@@ -34,8 +34,8 @@ export const FavoritesToggleButton = ({ movie }: { movie: MovieDetails }) => {
             className="opacity-70 hover:opacity-100 hover:scale-110 transition"
         >
             <HeartIcon
-                className={`w-8 h-8 cursor-pointer stroke-white transition-all duration-150 ease-out
-                    ${added ? 'fill-white' : 'fill-none'}
+                className={`w-8 h-8 cursor-pointer stroke-black dark:stroke-white transition-all duration-150 ease-out
+                    ${added ? 'fill-black dark:fill-white' : 'fill-none'}
                     ${isAnimating ? 'scale-125' : 'scale-100'}
                 `}
             />
