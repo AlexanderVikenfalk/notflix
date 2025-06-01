@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react'
 import useApi from '@/hooks/useApi'
-import { useTitle } from '@/hooks/useTitle'
-import { MovieCard } from '@/components/MovieCard.tsx'
+import { MovieCard } from '@/components/'
 import { getMovies } from '@/services/movieService'
 import type { MovieSearchResponse, MovieSearchResult } from '@/types/interfaces'
-import { Pagination } from '@/components/Pagination'
+import { Pagination } from '@/components/Pagination/Pagination'
+import { useTitle } from '@/hooks/useTitle.tsx'
 
 const MovieListPage = () => {
     const [currentPage, setCurrentPage] = useState(1)
     const { data, request, loading } = useApi(getMovies)
 
-    useTitle('Popular Movies')
+    useTitle('Home')
 
     useEffect(() => {
         request(currentPage)

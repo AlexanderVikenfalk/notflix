@@ -12,28 +12,24 @@ const getVisiblePages = (
     current: number,
     total: number
 ): (number | 'ellipsis')[] => {
-    if (total <= 7) {
+    if (total <= 5) {
         return Array.from({ length: total }, (_, i) => i + 1)
     }
 
     const pages: (number | 'ellipsis')[] = []
 
-    // Always show first page
     pages.push(1)
 
-    if (current <= 4) {
-        // Near the beginning: 1, 2, 3, 4, 5, ..., total
-        pages.push(2, 3, 4, 5)
-        if (total > 6) pages.push('ellipsis')
+    if (current <= 3) {
+        pages.push(2, 3)
+        if (total > 4) pages.push('ellipsis')
         pages.push(total)
-    } else if (current >= total - 3) {
-        // Near the end: 1, ..., total-4, total-3, total-2, total-1, total
-        if (total > 6) pages.push('ellipsis')
-        pages.push(total - 4, total - 3, total - 2, total - 1, total)
+    } else if (current >= total - 2) {
+        if (total > 4) pages.push('ellipsis')
+        pages.push(total - 2, total - 1, total)
     } else {
-        // In the middle: 1, ..., current-1, current, current+1, ..., total
         pages.push('ellipsis')
-        pages.push(current - 1, current, current + 1)
+        pages.push(current)
         pages.push('ellipsis')
         pages.push(total)
     }
@@ -75,7 +71,6 @@ export const Pagination = ({
             role="navigation"
             aria-label="Pagination"
         >
-            {/* First page button */}
             <button
                 onClick={() => handlePageChange(1)}
                 disabled={disabled || isFirstPage}
@@ -90,7 +85,6 @@ export const Pagination = ({
                 <ChevronDouble className="w-4 h-4" />
             </button>
 
-            {/* Previous page button */}
             <button
                 onClick={() => handlePageChange(page - 1)}
                 disabled={disabled || isFirstPage}
@@ -105,7 +99,6 @@ export const Pagination = ({
                 <Chevron className="w-4 h-4" />
             </button>
 
-            {/* Page numbers */}
             <div className="hidden sm:flex items-center gap-2 mx-2">
                 {visiblePages.map((pageNum, index) =>
                     pageNum === 'ellipsis' ? (
@@ -137,14 +130,12 @@ export const Pagination = ({
                 )}
             </div>
 
-            {/* Mobile page indicator */}
             <div className="flex sm:hidden items-center mx-4">
                 <span className="text-sm text-gray-600 dark:text-gray-400">
                     Page {page} of {count}
                 </span>
             </div>
 
-            {/* Next page button */}
             <button
                 onClick={() => handlePageChange(page + 1)}
                 disabled={disabled || isLastPage}
@@ -159,7 +150,6 @@ export const Pagination = ({
                 <Chevron className="w-4 h-4 rotate-180" />
             </button>
 
-            {/* Last page button */}
             <button
                 onClick={() => handlePageChange(count)}
                 disabled={disabled || isLastPage}
