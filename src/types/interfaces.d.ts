@@ -42,3 +42,5 @@ type FavoriteMovie = {
     poster_path: string
     release_date: string
 }
+
+export type MovieForCard = MovieSearchResult | MovieDetails | FavoriteMovie

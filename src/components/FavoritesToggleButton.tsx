@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react'
-// import  HeartIcon  from '@/assets/svg'
 import HeartIcon from '@/assets/svg/heart.svg?react'
 import { useFavorites } from '@/context/FavoritesContext'
-import type { MovieDetails } from '@/types/interfaces'
+import type { MovieDetails, MovieSearchResult } from '@/types/interfaces'
 
-export const FavoritesToggleButton = ({ movie }: { movie: MovieDetails }) => {
+export const FavoritesToggleButton = ({
+    movie,
+}: {
+    movie: MovieDetails | MovieSearchResult
+}) => {
     const { favorites, addFavorite, removeFavorite } = useFavorites()
     const [isAnimating, setIsAnimating] = useState(false)
     const [added, setAdded] = useState(false)
@@ -18,7 +21,7 @@ export const FavoritesToggleButton = ({ movie }: { movie: MovieDetails }) => {
         if (added) {
             removeFavorite(movie.id)
         } else {
-            addFavorite(movie)
+            addFavorite(movie) // movie has the full data
         }
 
         setIsAnimating(true)
@@ -34,8 +37,8 @@ export const FavoritesToggleButton = ({ movie }: { movie: MovieDetails }) => {
             className="opacity-70 hover:opacity-100 hover:scale-110 transition"
         >
             <HeartIcon
-                className={`w-8 h-8 cursor-pointer stroke-black dark:stroke-white transition-all duration-150 ease-out
-                    ${added ? 'fill-black dark:fill-white' : 'fill-none'}
+                className={`w-8 h-8 cursor-pointer stroke-red-800 transition-all duration-150 ease-out
+                    ${added ? 'fill-red-800' : 'fill-none'}
                     ${isAnimating ? 'scale-125' : 'scale-100'}
                 `}
             />

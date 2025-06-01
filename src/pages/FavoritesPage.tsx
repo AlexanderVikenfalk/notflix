@@ -1,5 +1,5 @@
 import { useFavorites } from '@/context/FavoritesContext'
-import { MovieCard } from '@/components/MovieCard'
+import { MovieCard } from '@/components/'
 import { useTitle } from '@/hooks/useTitle.tsx'
 
 const FavoritesPage = () => {

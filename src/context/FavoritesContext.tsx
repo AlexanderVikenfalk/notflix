@@ -5,38 +5,37 @@ import {
     useEffect,
     type ReactNode,
 } from 'react'
-import type { MovieDetails } from '@/types/interfaces'
+import type {
+    FavoriteMovie,
+    MovieDetails,
+    MovieSearchResult,
+} from '@/types/interfaces'
 
-// Constants
 const STORAGE_KEY = 'favorites'
 
-// Types
 interface FavoritesState {
-    favorites: MovieDetails[]
+    favorites: FavoriteMovie[]
 }
 
 interface FavoritesContextType extends FavoritesState {
-    addFavorite: (movie: MovieDetails) => void
+    addFavorite: (movie: MovieDetails | MovieSearchResult) => void
     removeFavorite: (id: number) => void
     isFavorite: (id: number) => boolean
 }
 
-// Actions
 type FavoritesAction =
-    | { type: 'ADD_FAVORITE'; payload: MovieDetails }
+    | { type: 'ADD_FAVORITE'; payload: FavoriteMovie }
     | { type: 'REMOVE_FAVORITE'; payload: number }
-    | { type: 'LOAD_FAVORITES'; payload: MovieDetails[] }
+    | { type: 'LOAD_FAVORITES'; payload: FavoriteMovie[] }
 
 const initialState: FavoritesState = {
     favorites: [],
 }
 
-// Context
 const FavoritesContext = createContext<FavoritesContextType | undefined>(
     undefined
 )
 
-// Reducer
 function favoritesReducer(
     state: FavoritesState,
     action: FavoritesAction
@@ -66,8 +65,7 @@ function favoritesReducer(
     }
 }
 
-// Helper Functions
-const loadFavoritesFromStorage = (): MovieDetails[] => {
+const loadFavoritesFromStorage = (): FavoriteMovie[] => {
     try {
         const stored = localStorage.getItem(STORAGE_KEY)
         return stored ? JSON.parse(stored) : []
@@ -77,7 +75,7 @@ const loadFavoritesFromStorage = (): MovieDetails[] => {
     }
 }
 
-const saveFavoritesToStorage = (favorites: MovieDetails[]) => {
+const saveFavoritesToStorage = (favorites: FavoriteMovie[]) => {
     try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(favorites))
     } catch {
@@ -85,11 +83,9 @@ const saveFavoritesToStorage = (favorites: MovieDetails[]) => {
     }
 }
 
-// Provider
 export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
     const [state, dispatch] = useReducer(favoritesReducer, initialState)
 
-    // Load favorites on mount
     useEffect(() => {
         const storedFavorites = loadFavoritesFromStorage()
         if (storedFavorites.length > 0) {
@@ -97,15 +93,18 @@ export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
         }
     }, [])
 
-    // Save favorites when they change
     useEffect(() => {
-        if (state.favorites.length > 0) {
-            saveFavoritesToStorage(state.favorites)
-        }
+        saveFavoritesToStorage(state.favorites)
     }, [state.favorites])
 
-    const addFavorite = (movie: MovieDetails) => {
-        dispatch({ type: 'ADD_FAVORITE', payload: movie })
+    const addFavorite = (movie: MovieDetails | MovieSearchResult) => {
+        const normalized: FavoriteMovie = {
+            id: movie.id,
+            title: movie.title,
+            poster_path: movie.poster_path,
+            release_date: movie.release_date,
+        }
+        dispatch({ type: 'ADD_FAVORITE', payload: normalized })
     }
 
     const removeFavorite = (id: number) => {
@@ -130,7 +129,6 @@ export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
     )
 }
 
-// Hook
 export const useFavorites = () => {
     const context = useContext(FavoritesContext)
     if (context === undefined) {
