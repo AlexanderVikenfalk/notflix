@@ -30,7 +30,10 @@ const MovieDetailsPage = () => {
             <section className="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
                 <div className="w-full max-w-md mx-auto lg:mx-0">
                     <img
-                        src={movie.poster_path || '/assets/backupPoster.webp'}
+                        src={
+                            movie.poster_path ||
+                            '/assets/images/placeholder.webp'
+                        }
                         alt={movie.title}
                         className="w-full rounded-lg shadow-lg"
                     />

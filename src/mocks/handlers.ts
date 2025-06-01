@@ -15,13 +15,13 @@ export const handlers = [
             return new HttpResponse('Movie not found', { status: 404 })
         }
 
-        console.log(id)
-        console.log(movieDetails.id)
-        if (id !== String(movieDetails.id)) {
+        const movie = movieDetails.find((m) => String(m.id) === id)
+
+        if (!movie) {
             return new HttpResponse('Movie not found', { status: 404 })
         }
 
-        return HttpResponse.json(movieDetails, { status: 200 })
+        return HttpResponse.json(movie, { status: 200 })
     }),
 
     // Search results
