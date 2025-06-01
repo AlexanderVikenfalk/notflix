@@ -16,7 +16,7 @@ const NotFoundPage = () => {
                 to="/"
                 className="px-5 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 dark:bg-gray-200 dark:text-gray-900 dark:hover:bg-white transition"
             >
-                Go to Home
+                Home
             </Link>
         </main>
     )

@@ -9,7 +9,7 @@ type ApiService<T extends unknown[] = unknown[]> = (
 const useApi = <T extends unknown[]>(serviceFunction: ApiService<T>) => {
     const [data, setData] = useState<unknown>(null)
     const [error, setError] = useState<string | null>(null)
-    const { setLoading } = useLoading()
+    const { loading, setLoading } = useLoading()
 
     const request = async (...args: T) => {
         setLoading(true)
@@ -24,7 +24,7 @@ const useApi = <T extends unknown[]>(serviceFunction: ApiService<T>) => {
         }
     }
 
-    return { data, error, request }
+    return { data, error, loading, request }
 }
 
 export default useApi
