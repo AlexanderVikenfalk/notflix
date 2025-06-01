@@ -1,12 +1,12 @@
 import { useSearchParams } from 'react-router-dom'
-import { useTitle } from '../hooks/useTitle'
-import { MovieCard } from '../components/MovieCard'
+import { useTitle } from '@/hooks/useTitle'
+import { MovieCard } from '@/components/'
 import type { MovieSearchResponse } from '@/types/interfaces'
 import { useEffect, useMemo, useState } from 'react'
 import { searchMovies } from '@/services/movieService'
 import useApi from '@/hooks/useApi.tsx'
 import { SearchFilterPanel } from '@/components/Header/SearchFilterPanel.tsx'
-import CircularProgress from "@mui/material/CircularProgress";
+import CircularProgress from '@mui/material/CircularProgress'
 
 const GENRE_MAP: Record<string, number> = {
     Action: 28,
@@ -51,7 +51,6 @@ const SearchResultsPage = () => {
 
     const filteredMovies = useMemo(() => {
         return movies.filter((movie) => {
-            // Genre filter
             const matchesGenre =
                 filters.genre.length === 0 ||
                 filters.genre.some((genreName) => {
@@ -59,7 +58,6 @@ const SearchResultsPage = () => {
                     return genreId && movie.genre_ids.includes(genreId)
                 })
 
-            // Release date filter
             const matchesReleaseDate = (() => {
                 const movieYear = movie.release_date
                     ? Number(movie.release_date.slice(0, 4))
@@ -80,7 +78,6 @@ const SearchResultsPage = () => {
                 return true
             })()
 
-            // Rating filter
             const matchesRating = (() => {
                 const movieRating = movie.vote_average || 0
                 const minRating = filters.rating.from
@@ -112,7 +109,6 @@ const SearchResultsPage = () => {
     return (
         <main className="min-h-screen bg-gray-50 dark:bg-gray-900">
             <div className="max-w-7xl mx-auto px-4 py-6">
-                {/* Search Info Header */}
                 <div className="mb-6">
                     <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
                         Search Results
@@ -125,7 +121,8 @@ const SearchResultsPage = () => {
                                 {movies.length > 0 && (
                                     <>
                                         {filteredMovies.length} of{' '}
-                                        {movies.length} results for &#34;{queryTerm}
+                                        {movies.length} results for &#34;
+                                        {queryTerm}
                                         &#34;{hasActiveFilters && ' (filtered)'}
                                     </>
                                 )}
@@ -145,14 +142,12 @@ const SearchResultsPage = () => {
                     />
                 )}
 
-                {/* Loading State */}
                 {loading && (
                     <div className="flex justify-center items-center py-12">
                         <CircularProgress size="3rem" />
                     </div>
                 )}
 
-                {/* No Results */}
                 {!loading && movies.length === 0 && (
                     <div className="text-center py-12">
                         <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
@@ -164,7 +159,6 @@ const SearchResultsPage = () => {
                     </div>
                 )}
 
-                {/* No Results After Filtering */}
                 {!loading &&
                     movies.length > 0 &&
                     filteredMovies.length === 0 &&

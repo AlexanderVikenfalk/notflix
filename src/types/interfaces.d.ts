@@ -36,13 +36,9 @@ export interface MovieDetails extends MovieSearchResult {
     cast?: string[]
 }
 
-export interface CastMember {
+type FavoriteMovie = {
     id: number
-    name: string
-    character?: string
-}
-
-export interface Genre {
-    id: number
-    name: string
+    title: string
+    poster_path: string
+    release_date: string
 }

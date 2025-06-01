@@ -4,10 +4,8 @@ import { movieDetails, movieSearchResponse } from './data'
 export const handlers = [
     // All movies
     http.get('http://localhost:3000/movies', async ({ request }) => {
-        // simulate network request
         await delay(800)
 
-        // pagination logic
         const url = new URL(request.url)
         const pageParam = url.searchParams.get('page')
         const page = parseInt(pageParam ?? '1', 10)

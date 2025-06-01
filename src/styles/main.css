@@ -3,11 +3,11 @@
 
 html {
     @apply transition-colors duration-300;
-    scroll-behavior: smooth;
+    @apply scroll-smooth;
 }
 
 html,
 body,
 #root {
-    height: 100%;
+    @apply: h-full;
 }

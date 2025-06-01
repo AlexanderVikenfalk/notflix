@@ -3,7 +3,7 @@ import type { MovieDetails, MovieSearchResponse } from '@/types/interfaces'
 // TODO: Add movieDetails for all movies
 export const movieDetails: MovieDetails[] = [
     {
-        id: 552524,
+        id: 552424,
         title: 'Lilo & Stitch',
         original_title: 'Lilo & Stitch',
         poster_path: '/assets/images/3bN675X0K2E5QiAZVChzB5wq90B.webp',
@@ -96,7 +96,7 @@ export const movieSearchResponse: MovieSearchResponse = {
             adult: false,
             backdrop_path: '/7Zx3wDG5bBtcfk8lcnCWDOLM4Y4.jpg',
             genre_ids: [10751, 35, 878],
-            id: 552524,
+            id: 551524,
             original_language: 'en',
             original_title: 'Lilo & Stitch',
             overview:
@@ -232,7 +232,7 @@ export const movieSearchResponse: MovieSearchResponse = {
             adult: false,
             backdrop_path: '/dJ1JpHuTCRxtGpRq8bQzk2jBqTi.jpg',
             genre_ids: [10751, 14, 12],
-            id: 896536,
+            id: 896336,
             original_language: 'en',
             original_title: 'The Legend of Ochi',
             overview:
@@ -453,7 +453,7 @@ export const movieSearchResponse: MovieSearchResponse = {
             adult: false,
             backdrop_path: '/7Zx3wDG5bBtcfk8lcnCWDOLM4Y4.jpg',
             genre_ids: [10751, 35, 878],
-            id: 552524,
+            id: 552521,
             original_language: 'en',
             original_title: '!!!!!! Lilo & Stitch !!!!!',
             overview:
@@ -589,7 +589,7 @@ export const movieSearchResponse: MovieSearchResponse = {
             adult: false,
             backdrop_path: '/dJ1JpHuTCRxtGpRq8bQzk2jBqTi.jpg',
             genre_ids: [10751, 14, 12],
-            id: 896536,
+            id: 891536,
             original_language: 'en',
             original_title: 'The Legend of Ochi',
             overview:
@@ -810,7 +810,7 @@ export const movieSearchResponse: MovieSearchResponse = {
             adult: false,
             backdrop_path: '/7Zx3wDG5bBtcfk8lcnCWDOLM4Y4.jpg',
             genre_ids: [10751, 35, 878],
-            id: 552524,
+            id: 1052524,
             original_language: 'en',
             original_title: '!!!!!! Lilo & Stitch !!!!!',
             overview:
@@ -946,7 +946,7 @@ export const movieSearchResponse: MovieSearchResponse = {
             adult: false,
             backdrop_path: '/dJ1JpHuTCRxtGpRq8bQzk2jBqTi.jpg',
             genre_ids: [10751, 14, 12],
-            id: 896536,
+            id: 896566,
             original_language: 'en',
             original_title: 'The Legend of Ochi',
             overview:
@@ -1167,7 +1167,7 @@ export const movieSearchResponse: MovieSearchResponse = {
             adult: false,
             backdrop_path: '/7Zx3wDG5bBtcfk8lcnCWDOLM4Y4.jpg',
             genre_ids: [10751, 35, 878],
-            id: 552524,
+            id: 542524,
             original_language: 'en',
             original_title: '!!!!!! Lilo & Stitch !!!!!',
             overview:
@@ -1303,7 +1303,7 @@ export const movieSearchResponse: MovieSearchResponse = {
             adult: false,
             backdrop_path: '/dJ1JpHuTCRxtGpRq8bQzk2jBqTi.jpg',
             genre_ids: [10751, 14, 12],
-            id: 896536,
+            id: 196536,
             original_language: 'en',
             original_title: 'The Legend of Ochi',
             overview:
@@ -1524,7 +1524,7 @@ export const movieSearchResponse: MovieSearchResponse = {
             adult: false,
             backdrop_path: '/7Zx3wDG5bBtcfk8lcnCWDOLM4Y4.jpg',
             genre_ids: [10751, 35, 878],
-            id: 552524,
+            id: 552526,
             original_language: 'en',
             original_title: '!!!!!! Lilo & Stitch !!!!!',
             overview:
@@ -1660,7 +1660,7 @@ export const movieSearchResponse: MovieSearchResponse = {
             adult: false,
             backdrop_path: '/dJ1JpHuTCRxtGpRq8bQzk2jBqTi.jpg',
             genre_ids: [10751, 14, 12],
-            id: 896536,
+            id: 894536,
             original_language: 'en',
             original_title: 'The Legend of Ochi',
             overview:
@@ -1881,7 +1881,7 @@ export const movieSearchResponse: MovieSearchResponse = {
             adult: false,
             backdrop_path: '/7Zx3wDG5bBtcfk8lcnCWDOLM4Y4.jpg',
             genre_ids: [10751, 35, 878],
-            id: 552524,
+            id: 152524,
             original_language: 'en',
             original_title: '!!!!!! Lilo & Stitch !!!!!',
             overview:
@@ -2017,7 +2017,7 @@ export const movieSearchResponse: MovieSearchResponse = {
             adult: false,
             backdrop_path: '/dJ1JpHuTCRxtGpRq8bQzk2jBqTi.jpg',
             genre_ids: [10751, 14, 12],
-            id: 896536,
+            id: 896530,
             original_language: 'en',
             original_title: 'The Legend of Ochi',
             overview:
@@ -2238,7 +2238,7 @@ export const movieSearchResponse: MovieSearchResponse = {
             adult: false,
             backdrop_path: '/7Zx3wDG5bBtcfk8lcnCWDOLM4Y4.jpg',
             genre_ids: [10751, 35, 878],
-            id: 552524,
+            id: 552324,
             original_language: 'en',
             original_title: '!!!!!! Lilo & Stitch !!!!!',
             overview:
@@ -2374,7 +2374,7 @@ export const movieSearchResponse: MovieSearchResponse = {
             adult: false,
             backdrop_path: '/dJ1JpHuTCRxtGpRq8bQzk2jBqTi.jpg',
             genre_ids: [10751, 14, 12],
-            id: 896536,
+            id: 896236,
             original_language: 'en',
             original_title: 'The Legend of Ochi',
             overview:
