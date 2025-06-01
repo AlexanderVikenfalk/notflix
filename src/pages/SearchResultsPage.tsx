@@ -30,7 +30,7 @@ const SearchResultsPage = () => {
 
     return (
         <main>
-            <section className="py-7">
+            <section className="max-w-7xl mx-auto py-7">
                 {filteredMovies.length === 0 && (
                     <p className="text-3xl text-gray-700 dark:text-white">
                         No results found for &#39;{queryTerm}&#39;

@@ -29,9 +29,9 @@ export const ThemeSwitcher = () => {
         >
             <span className="block transition-transform duration-200 ease-in-out">
                 {darkMode ? (
-                    <SunIcon className="w-5 h-5 text-gray-700 dark:text-white" />
+                    <SunIcon className="w-5 h-5" />
                 ) : (
-                    <MoonIcon className="w-5 h-5 text-gray-700 dark:text-white" />
+                    <MoonIcon className="w-5 h-5" />
                 )}
             </span>
         </button>

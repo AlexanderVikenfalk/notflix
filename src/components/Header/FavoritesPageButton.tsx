@@ -12,7 +12,7 @@ export const FavoritesPageButton = () => {
             onClick={() => navigate('/favorites')}
             className="p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700"
         >
-            <CircleHeartIcon className="w-5 h-5 text-gray-700 dark:text-white cursor-pointer" />
+            <CircleHeartIcon className="w-5 h-5 cursor-pointer" />
         </button>
     )
 }
