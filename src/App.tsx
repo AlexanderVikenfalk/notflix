@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import { LinearProgress } from '@mui/material'
-import { Header, Footer } from '@/components'
+import { Header } from '@/components'
 import { useLoading } from '@/context/LoadingContext.tsx'
 
 function App() {
@@ -13,7 +13,6 @@ function App() {
             {loading && <LinearProgress className="!fixed !w-full !z-2" />}
             <Header />
             <Outlet />
-            <Footer />
         </div>
     )
 }
