@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react'
 import useApi from '@/hooks/useApi'
-import { MovieCard, MovieCardSkeleton } from '@/components/'
 import { getMovies } from '@/services/movieService'
-import type { MovieSearchResponse, MovieSearchResult } from '@/types/interfaces'
-import { Pagination } from '@/components/pagination/Pagination'
-import { useTitle } from '@/hooks/useTitle.tsx'
+import { useTitle } from '@/hooks/useTitle'
+import type { MovieSearchResponse } from '@/types/interfaces'
+import { MovieGrid } from '@/components/MovieGrid'
 
 const MovieListPage = () => {
     const [currentPage, setCurrentPage] = useState(1)
-    const { data, request, loading } = useApi(getMovies)
+    const { data, request, loading } = useApi<MovieSearchResponse, [number]>(
+        getMovies
+    )
 
     useTitle('Home')
 
@@ -16,42 +17,18 @@ const MovieListPage = () => {
         request(currentPage)
     }, [currentPage])
 
-    const movies = (data as MovieSearchResponse)?.results ?? []
-    const totalPages = (data as MovieSearchResponse)?.total_pages ?? 1
-
-    const handlePageChange = (newPage: number) => {
-        setCurrentPage(newPage)
-    }
+    const movies = data?.results ?? []
+    const totalPages = data?.total_pages ?? 1
 
     return (
         <main className="min-h-screen">
-            <section className="max-w-7xl mx-auto py-7">
-                {loading ? (
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 px-8">
-                        {Array.from({ length: 12 }).map((_, i) => (
-                            <MovieCardSkeleton key={`skeleton-${i}`} />
-                        ))}
-                    </div>
-                ) : movies.length === 0 ? (
-                    <p className="text-3xl text-gray-700 dark:text-white">
-                        No movies to display
-                    </p>
-                ) : (
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 px-8">
-                        {movies.map((movie: MovieSearchResult) => (
-                            <MovieCard key={movie.id} movie={movie} />
-                        ))}
-                    </div>
-                )}
-            </section>
-
-            {!loading && totalPages > 1 && (
-                <Pagination
-                    page={currentPage}
-                    count={totalPages}
-                    onChange={handlePageChange}
-                />
-            )}
+            <MovieGrid
+                movies={movies}
+                loading={loading}
+                totalPages={totalPages}
+                currentPage={currentPage}
+                onPageChange={setCurrentPage}
+            />
         </main>
     )
 }
