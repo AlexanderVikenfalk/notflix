@@ -22,12 +22,13 @@ const MovieCardComponent = ({ movie }: MovieCardProps) => {
                     src={movie.poster_path}
                     alt={movie.title || 'Movie poster'}
                     onError={(e) => {
-                        e.currentTarget.onerror = null
-                        e.currentTarget.src =
-                            '/assets/images/fallback-poster.webp'
+                        const target = e.currentTarget
+                        target.onerror = null
+                        target.src = '/assets/images/fallback-poster.webp'
                     }}
                     className="w-full h-[300px] object-cover transition-transform duration-300 ease-in-out group-hover:scale-105 will-change-transform"
                 />
+
             </Link>
 
             <Link
