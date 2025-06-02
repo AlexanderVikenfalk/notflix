@@ -31,6 +31,7 @@ const SearchResultsPage = () => {
         filteredMovies,
         hasActiveFilters,
         resetFilters,
+        applyFilters
     } = useMovieFilters(movies)
 
     useTitle(`Search results for "${queryTerm}"`)
@@ -48,7 +49,10 @@ const SearchResultsPage = () => {
 
     const shouldShowFilters = movies.length > 0
     const shouldShowLoader = loading
-    const shouldShowEmptyState = !loading && filteredMovies.length === 0
+    const shouldShowEmptyState =
+        !loading &&
+        filteredMovies.length === 0 &&
+        hasActiveFilters
     const shouldShowMovieGrid = !loading && filteredMovies.length > 0
 
     return (
@@ -62,10 +66,13 @@ const SearchResultsPage = () => {
                 />
 
                 {shouldShowFilters && (
-                    <SearchFilterPanel
-                        filters={filters}
-                        onChange={setFilters}
-                    />
+
+                            <SearchFilterPanel
+                                filters={filters}
+                                onChange={setFilters}
+                                onApply={applyFilters}
+                            />
+
                 )}
 
                 {shouldShowLoader && <LoadingSpinner />}

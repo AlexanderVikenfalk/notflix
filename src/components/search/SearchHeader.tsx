@@ -25,7 +25,9 @@ export function SearchHeader({
             )
         }
 
-        return `No results found for "${queryTerm}"`
+        return hasActiveFilters
+            ? 'No movies match your filters'
+            : `No results found for "${queryTerm}"`
     }
 
     return (
