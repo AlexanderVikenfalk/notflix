@@ -1,28 +1,26 @@
-import type { MovieDetails } from '@/types/interfaces'
+import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import useApi from '@/hooks/useApi'
 import { useTitle } from '@/hooks/useTitle.tsx'
 import { getMovieById } from '@/services/movieService'
-import { FavoritesToggleButton } from '@/components'
-import { useEffect } from 'react'
+import { FavoritesToggleButton, MovieDetailsSkeleton } from '@/components'
+import type { MovieDetails } from '@/types/interfaces'
 
 const MovieDetailsPage = () => {
     const { id } = useParams<{ id: string }>()
-    const { data, request } = useApi(getMovieById)
+    const { data, request, loading } = useApi(getMovieById)
 
     useEffect(() => {
         if (id) {
-            ;(async () => {
-                await request(id)
-            })()
+            request(id)
         }
     }, [id])
 
-    const movie = (data as MovieDetails) || []
+    const movie = data as MovieDetails | null
     useTitle(movie?.title || 'Loading...')
 
-    if (!movie) {
-        return <p className=" p-4">Loading movie details...</p>
+    if (loading || !movie) {
+        return <MovieDetailsSkeleton />
     }
 
     return (
@@ -41,6 +39,7 @@ const MovieDetailsPage = () => {
 
                 <div className="lg:col-span-2">
                     <h1 className="text-4xl font-bold mb-2">{movie.title}</h1>
+
                     {movie.director && (
                         <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">
                             Directed by {movie.director}
