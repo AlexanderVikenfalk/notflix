@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import type {MovieForCard, MovieSearchResult} from '@/types/interfaces'
+import type { MovieForCard, MovieSearchResult } from '@/types/interfaces'
 import { Link } from 'react-router-dom'
 
 interface MovieCardProps {
@@ -21,7 +21,7 @@ const MovieCardComponent = ({ movie }: MovieCardProps) => {
                 <img
                     src={movie.poster_path}
                     alt={movie.title}
-                    className="w-full h-[300px] object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+                    className="w-full h-[300px] object-cover transition-transform duration-300 ease-in-out group-hover:scale-105 will-change-transform"
                 />
             </Link>
 

@@ -21,7 +21,7 @@ export const FavoritesToggleButton = ({
         if (added) {
             removeFavorite(movie.id)
         } else {
-            addFavorite(movie) // movie has the full data
+            addFavorite(movie)
         }
 
         setIsAnimating(true)
