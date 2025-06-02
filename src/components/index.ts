@@ -13,3 +13,5 @@ export { LoadingSpinner } from './search/LoadingSpinner.tsx'
 export { SearchHeader } from './search/SearchHeader.tsx'
 
 export { Button } from './commons/Button.tsx'
+
+export {ScrollToTop} from './ScrollToTop.tsx'
