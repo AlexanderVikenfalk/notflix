@@ -1,6 +1,7 @@
 import { MovieCard, MovieCardSkeleton } from '@/components'
 import type { MovieSearchResult } from '@/types/interfaces'
 import { Pagination } from '@/components/pagination/Pagination'
+import { memo } from 'react'
 
 type Props = {
     movies: MovieSearchResult[]
@@ -11,7 +12,7 @@ type Props = {
     emptyMessage?: string
 }
 
-export const MovieGrid = ({
+export const MovieGridComponent = ({
     movies,
     loading,
     totalPages,
@@ -51,3 +52,7 @@ export const MovieGrid = ({
         </section>
     )
 }
+
+MovieGridComponent.displayName = 'MovieCard'
+
+export const MovieGrid = memo(MovieGridComponent)

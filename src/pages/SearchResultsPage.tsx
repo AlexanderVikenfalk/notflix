@@ -4,7 +4,7 @@ import { searchMovies } from '@/services/movieService'
 import useApi from '@/hooks/useApi'
 import { SearchFilterPanel } from '@/components/header/SearchFilterPanel'
 import { useMovieFilters } from '@/hooks/useMovieFilters'
-import { useSearchParamsManager } from '@/hooks/useSearchParams'
+import { useSearchParamsManager } from '@/hooks/useSearchParamsManager.tsx'
 import {
     SearchHeader,
     LoadingSpinner,
@@ -14,7 +14,7 @@ import {
 import type { MovieSearchResponse } from '@/types/interfaces'
 
 const SearchResultsPage = () => {
-    const { queryTerm, page, updatePage, resetToFirstPage } =
+    const { debouncedQuery, page, updatePage, resetToFirstPage } =
         useSearchParamsManager()
 
     const { data, request, loading } = useApi<
@@ -31,54 +31,55 @@ const SearchResultsPage = () => {
         filteredMovies,
         hasActiveFilters,
         resetFilters,
-        applyFilters
+        applyFilters,
     } = useMovieFilters(movies)
 
-    useTitle(`Search results for "${queryTerm}"`)
+    useTitle(`Search results for "${debouncedQuery}"`)
 
     useEffect(() => {
         resetFilters()
         resetToFirstPage()
-    }, [queryTerm])
+    }, [debouncedQuery])
 
     useEffect(() => {
-        if (queryTerm) {
-            void request(queryTerm, page)
+        if (debouncedQuery) {
+            void request(debouncedQuery, page)
         }
-    }, [queryTerm, page])
+    }, [debouncedQuery, page])
 
     const shouldShowFilters = movies.length > 0
     const shouldShowLoader = loading
     const shouldShowEmptyState =
         !loading &&
         filteredMovies.length === 0 &&
-        hasActiveFilters
+        (hasActiveFilters || debouncedQuery.length > 0)
     const shouldShowMovieGrid = !loading && filteredMovies.length > 0
 
     return (
         <main className="min-h-screen bg-gray-50 dark:bg-gray-900">
             <div className="max-w-7xl mx-auto px-4 py-6">
                 <SearchHeader
-                    queryTerm={queryTerm}
+                    queryTerm={debouncedQuery}
                     loading={loading}
                     resultsCount={filteredMovies.length}
                     hasActiveFilters={hasActiveFilters}
                 />
 
                 {shouldShowFilters && (
-
-                            <SearchFilterPanel
-                                filters={filters}
-                                onChange={setFilters}
-                                onApply={applyFilters}
-                            />
-
+                    <SearchFilterPanel
+                        filters={filters}
+                        onChange={setFilters}
+                        onApply={applyFilters}
+                    />
                 )}
 
                 {shouldShowLoader && <LoadingSpinner />}
 
                 {shouldShowEmptyState && (
-                    <EmptyState onClearFilters={resetFilters} />
+                    <EmptyState
+                        onClearFilters={resetFilters}
+                        filtersApplied={hasActiveFilters}
+                    />
                 )}
 
                 {shouldShowMovieGrid && (

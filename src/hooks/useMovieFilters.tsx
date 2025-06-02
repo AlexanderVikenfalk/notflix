@@ -6,7 +6,8 @@ export type MovieFilters = typeof DEFAULT_FILTERS
 
 export const useMovieFilters = (movies: MovieSearchResult[]) => {
     const [filters, setFilters] = useState<MovieFilters>(DEFAULT_FILTERS)
-    const [appliedFilters, setAppliedFilters] = useState<MovieFilters>(DEFAULT_FILTERS)
+    const [appliedFilters, setAppliedFilters] =
+        useState<MovieFilters>(DEFAULT_FILTERS)
 
     const applyFilters = () => setAppliedFilters(filters)
     const resetFilters = () => {
@@ -30,13 +31,19 @@ export const useMovieFilters = (movies: MovieSearchResult[]) => {
                 ? Number(appliedFilters.releaseDate.to)
                 : null
 
-            const matchesReleaseDate = (!fromYear || (year && year >= fromYear)) &&
+            const matchesReleaseDate =
+                (!fromYear || (year && year >= fromYear)) &&
                 (!toYear || (year && year <= toYear))
 
             const rating = movie.vote_average || 0
-            const minRating = appliedFilters.rating.from ? Number(appliedFilters.rating.from) : null
-            const maxRating = appliedFilters.rating.to ? Number(appliedFilters.rating.to) : null
-            const matchesRating = (!minRating || rating >= minRating) &&
+            const minRating = appliedFilters.rating.from
+                ? Number(appliedFilters.rating.from)
+                : null
+            const maxRating = appliedFilters.rating.to
+                ? Number(appliedFilters.rating.to)
+                : null
+            const matchesRating =
+                (!minRating || rating >= minRating) &&
                 (!maxRating || rating <= maxRating)
 
             return matchesGenre && matchesReleaseDate && matchesRating
@@ -46,10 +53,10 @@ export const useMovieFilters = (movies: MovieSearchResult[]) => {
     const hasActiveFilters = useMemo(() => {
         return Boolean(
             filters.genre.length > 0 ||
-            filters.releaseDate.from ||
-            filters.releaseDate.to ||
-            filters.rating.from ||
-            filters.rating.to
+                filters.releaseDate.from ||
+                filters.releaseDate.to ||
+                filters.rating.from ||
+                filters.rating.to
         )
     }, [filters])
 

@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import MoonIcon from '@/assets/svg/moon.svg?react'
 import SunIcon from '@/assets/svg/Sun.svg?react'
 import { useLocalStorageState } from '@/hooks/useLocalStorageState'
+import { Button } from '@/components/'
 
 export const ThemeSwitcher = () => {
     const getInitialIsDarkMode = () => {
@@ -21,11 +22,13 @@ export const ThemeSwitcher = () => {
     }, [isDarkMode])
 
     return (
-        <button
+        <Button
             type="button"
             onClick={() => setIsDarkMode((prev: boolean) => !prev)}
-            className="p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer transition-colors duration-300"
+            variant="icon"
             title="Toggle theme"
+            aria-label="Toggle theme"
+            className="p-2"
         >
             <span className="block transition-transform duration-200 ease-in-out">
                 {isDarkMode ? (
@@ -34,6 +37,6 @@ export const ThemeSwitcher = () => {
                     <MoonIcon className="w-5 h-5" />
                 )}
             </span>
-        </button>
+        </Button>
     )
 }

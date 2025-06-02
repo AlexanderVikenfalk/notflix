@@ -1,18 +1,20 @@
 import { useNavigate } from 'react-router-dom'
 import CircleHeartIcon from '@/assets/svg/circle-heart.svg?react'
+import { Button } from '@/components/'
 
 export const FavoritesPageButton = () => {
     const navigate = useNavigate()
 
     return (
-        <button
+        <Button
             type="button"
             aria-label="Favorites"
             title="Favorites"
             onClick={() => navigate('/favorites')}
-            className="p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700"
+            variant="icon"
+            className="p-2 rounded"
         >
-            <CircleHeartIcon className="w-5 h-5 cursor-pointer" />
-        </button>
+            <CircleHeartIcon className="w-5 h-5" />
+        </Button>
     )
 }

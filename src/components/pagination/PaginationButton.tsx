@@ -1,4 +1,5 @@
 import { type ReactNode } from 'react'
+import { Button } from '@/components/'
 
 interface PaginationButtonProps {
     onClick: () => void
@@ -10,15 +11,6 @@ interface PaginationButtonProps {
     'aria-current'?: 'page'
 }
 
-const buttonBaseClass =
-    'min-w-[44px] h-11 flex items-center justify-center rounded font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900'
-const buttonEnabledClass =
-    'text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer'
-const buttonDisabledClass =
-    'text-gray-400 dark:text-gray-600 cursor-not-allowed'
-const buttonActiveClass =
-    'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 font-bold underline hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer px-2'
-
 export const PaginationButton = ({
     onClick,
     disabled,
@@ -28,22 +20,25 @@ export const PaginationButton = ({
     title,
     'aria-current': ariaCurrent,
 }: PaginationButtonProps) => {
-    const getButtonClass = () => {
-        if (isActive) return `${buttonBaseClass} ${buttonActiveClass}`
-        if (disabled) return `${buttonBaseClass} ${buttonDisabledClass}`
-        return `${buttonBaseClass} ${buttonEnabledClass}`
+    const variant: 'primary' | 'secondary' | 'danger' | 'ghost' = 'secondary'
+    let className = 'min-w-[44px] h-11 px-2 font-medium'
+
+    if (isActive) {
+        className +=
+            ' bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 font-bold underline'
     }
 
     return (
-        <button
+        <Button
             onClick={onClick}
             disabled={disabled}
-            className={getButtonClass()}
+            variant={variant}
             aria-label={ariaLabel}
             title={title}
             aria-current={ariaCurrent}
+            className={className}
         >
             {children}
-        </button>
+        </Button>
     )
 }
