@@ -2,16 +2,18 @@ import { useState } from 'react'
 import { useLoading } from '@/context/LoadingContext'
 import type { AxiosResponse } from 'axios'
 
-type ApiService<T extends unknown[] = unknown[]> = (
-    ...args: T
-) => Promise<AxiosResponse<unknown>>
+type ApiService<TData, TArgs extends unknown[] = unknown[]> = (
+    ...args: TArgs
+) => Promise<AxiosResponse<TData>>
 
-const useApi = <T extends unknown[]>(serviceFunction: ApiService<T>) => {
-    const [data, setData] = useState<unknown>(null)
+const useApi = <TData, TArgs extends unknown[] = unknown[]>(
+    serviceFunction: ApiService<TData, TArgs>
+) => {
+    const [data, setData] = useState<TData | null>(null)
     const [error, setError] = useState<string | null>(null)
     const { loading, setLoading } = useLoading()
 
-    const request = async (...args: T) => {
+    const request = async (...args: TArgs) => {
         setLoading(true)
         setError(null)
         try {

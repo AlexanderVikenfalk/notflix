@@ -5,6 +5,5 @@ export const getMovies = (page: number) =>
 
 export const getMovieById = (id: string) => axiosInstance.get(`/movie/${id}`)
 
-export const searchMovies = (query: string) => {
-    return axiosInstance.get(`/search/?q=${query}`)
-}
+export const searchMovies = (query: string, page = 1) =>
+    axiosInstance.get(`/search?q=${query}&page=${page}`)

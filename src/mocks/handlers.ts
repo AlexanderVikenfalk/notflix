@@ -2,7 +2,6 @@ import { delay, http, HttpResponse } from 'msw'
 import { movieDetails, movieSearchResponse } from './data'
 
 export const handlers = [
-    // All movies
     http.get('http://localhost:3000/movies', async ({ request }) => {
         await delay(800)
 
@@ -32,7 +31,6 @@ export const handlers = [
         )
     }),
 
-    // Movie details
     http.get('http://localhost:3000/movie/:id', async ({ params }) => {
         await delay(800)
         const { id } = params
@@ -50,11 +48,16 @@ export const handlers = [
         return HttpResponse.json(movie, { status: 200 })
     }),
 
-    // Search results
     http.get('http://localhost:3000/search', async ({ request }) => {
         await delay(800)
         const url = new URL(request.url)
         const query = url.searchParams.get('q')?.toLowerCase() ?? ''
+        const pageParam = url.searchParams.get('page')
+        const page = parseInt(pageParam ?? '1', 10)
+
+        const limit = 20
+        const startIndex = (page - 1) * limit
+        const endIndex = startIndex + limit
 
         if (!query) {
             return HttpResponse.json(
@@ -67,12 +70,15 @@ export const handlers = [
             movie.title.toLowerCase().includes(query)
         )
 
+        const paginatedResults = filteredResults.slice(startIndex, endIndex)
+        const totalPages = Math.ceil(filteredResults.length / limit)
+
         return HttpResponse.json(
             {
-                ...movieSearchResponse,
-                results: filteredResults,
+                results: paginatedResults,
                 total_results: filteredResults.length,
-                total_pages: 1,
+                total_pages: totalPages,
+                page,
             },
             { status: 200 }
         )
