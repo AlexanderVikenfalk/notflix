@@ -36,6 +36,7 @@ export const Pagination = ({
             role="navigation"
             aria-label="Pagination"
         >
+            <h2 className="sr-only">Pagination navigation</h2>
             <PaginationButton
                 onClick={() => handlePageChange(1)}
                 disabled={disabled || isFirstPage}

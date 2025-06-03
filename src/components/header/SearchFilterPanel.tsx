@@ -67,6 +67,7 @@ export const SearchFilterPanel = ({
 
     return (
         <div className="mb-6 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 shadow-sm">
+            <h2 className="sr-only">Movie filtering</h2>
             <div
                 className="flex items-center justify-between p-4 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
                 onClick={() => setIsExpanded(!isExpanded)}

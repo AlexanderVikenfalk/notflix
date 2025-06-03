@@ -21,6 +21,7 @@ export const SearchInput = ({
                 onClick={onSearch}
                 title="Search"
                 type="button"
+                aria-label="Search"
                 className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 dark:text-gray-400 cursor-pointer"
             >
                 <SearchIcon className="w-5 h-5 scale-x-[-1]" />
