@@ -1,40 +1,55 @@
-import type { MovieCardData } from '@/types/ui/movieCard'
+import { memo } from 'react'
+import { Link } from 'react-router-dom'
+import { FavoritesToggleButton } from '@/components'
+import type { MovieSearchResult } from '@/types/api/movie'
 
-interface Props {
-    movie: MovieCardData
+interface MovieCardProps {
+    movie: MovieSearchResult
 }
 
-export const MovieCard = ({ movie }: Props) => {
+const MovieCardComponent = ({ movie }: MovieCardProps) => {
     const releaseYear = movie.release_date?.slice(0, 4) || ''
-    const genres = movie.genres ?? []
 
     return (
         <article
+            className="relative "
             itemScope
             itemType="https://schema.org/Movie"
-            className="rounded shadow-md overflow-hidden bg-white dark:bg-gray-800"
         >
-            <a href={`/movie/${movie.id}`} itemProp="url">
+            <div className="absolute top-2 right-2 z-10">
+                <FavoritesToggleButton movie={movie} />
+            </div>
+
+            <Link
+                to={`/movie/${movie.id}`}
+                className="block overflow-hidden focus-visible:ring-2 transition-shadow"
+                itemProp="url"
+            >
                 <img
                     src={movie.poster_path}
                     alt={movie.title}
                     itemProp="image"
-                    className="w-full h-auto"
+                    className="w-full h-[300px] object-cover transition-transform duration-300 ease-in-out group-hover:scale-105  object-cover transition-transform duration-300 ease-in-out hover:scale-105 will-change-transform"
                 />
-            </a>
+            </Link>
 
             <div className="p-3">
-                <h3 itemProp="name" className="text-lg font-semibold truncate">
+                <Link
+                    to={`/movie/${movie.id}`}
+                    className="block mt-2 font-semibold text-gray-900 dark:text-white truncate focus-visible:ring-2"
+                    itemProp="name"
+                >
                     {movie.title}
-                </h3>
+                </Link>
                 <meta itemProp="datePublished" content={movie.release_date} />
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-gray-500 dark:text-gray-400 text-xs">
                     {releaseYear}
                 </p>
-                {genres.length > 0 && (
-                    <meta itemProp="genre" content={genres.join(', ')} />
-                )}
             </div>
         </article>
     )
 }
+
+MovieCardComponent.displayName = 'MovieCard'
+
+export const MovieCard = memo(MovieCardComponent)
