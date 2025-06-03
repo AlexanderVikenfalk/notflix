@@ -29,7 +29,7 @@ export const MovieGridComponent = ({
 
             {loading ? (
                 <ul className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 px-8">
-                    {Array.from({ length: 10 }).map((_, i) => (
+                    {Array.from({ length: 15 }).map((_, i) => (
                         <li key={`skeleton-${i}`}>
                             <MovieCardSkeleton />
                         </li>

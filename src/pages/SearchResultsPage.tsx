@@ -6,7 +6,6 @@ import { SearchFilterPanel } from '@/components/header/SearchFilterPanel'
 import { useMovieFilters } from '@/hooks/useMovieFilters'
 import { useSearchParamsManager } from '@/hooks/useSearchParamsManager'
 import { SearchHeader } from '@/components/search/SearchHeader'
-import { LoadingSpinner } from '@/components/search/LoadingSpinner'
 import { EmptyState } from '@/components/search/EmptyState'
 import { MovieGrid } from '@/components/MovieGrid'
 import type { MovieSearchResponse } from '@/types/api/movie'
@@ -46,7 +45,6 @@ const SearchResultsPage = () => {
     }, [debouncedQuery, page])
 
     const shouldShowFilters = movies.length > 0
-    const shouldShowLoader = loading
     const shouldShowEmptyState =
         !loading &&
         filteredMovies.length === 0 &&
@@ -70,8 +68,6 @@ const SearchResultsPage = () => {
                         onApply={applyFilters}
                     />
                 )}
-
-                {shouldShowLoader && <LoadingSpinner />}
 
                 {shouldShowEmptyState && (
                     <EmptyState
