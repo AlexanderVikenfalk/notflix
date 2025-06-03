@@ -1,5 +1,6 @@
 import { memo } from 'react'
-import { MovieCard, MovieCardSkeleton } from '@/components'
+import { MovieCard } from '@/components/MovieCard'
+import { MovieCardSkeleton } from '@/components/skeletons/MovieCardSkeleton'
 import { Pagination } from '@/components/pagination/Pagination'
 import type { MovieSearchResult } from '@/types/api/movie'
 

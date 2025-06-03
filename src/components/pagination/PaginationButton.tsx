@@ -1,5 +1,5 @@
 import { type ReactNode } from 'react'
-import { Button } from '@/components/'
+import { Button } from '@/components/commons/Button'
 
 interface PaginationButtonProps {
     onClick: () => void

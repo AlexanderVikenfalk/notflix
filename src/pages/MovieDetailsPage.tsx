@@ -1,9 +1,10 @@
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import useApi from '@/hooks/useApi'
-import { useTitle } from '@/hooks/useTitle.tsx'
+import { useTitle } from '@/hooks/useTitle'
 import { getMovieById } from '@/services/movieService'
-import { FavoritesToggleButton, MovieDetailsSkeleton } from '@/components'
+import { FavoritesToggleButton } from '@/components/FavoritesToggleButton'
+import { MovieDetailsSkeleton } from '@/components/skeletons/MovieDetailsSkeleton'
 import type { MovieDetails } from '@/types/api/movie'
 
 const MovieDetailsPage = () => {

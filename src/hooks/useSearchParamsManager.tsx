@@ -1,7 +1,13 @@
 import { useSearchParams as useRouterSearchParams } from 'react-router-dom'
 import { useCallback, useEffect, useState } from 'react'
 
-const FILTER_PARAMS = ['genres', 'yearFrom', 'yearTo', 'ratingFrom', 'ratingTo'] as const
+const FILTER_PARAMS = [
+    'genres',
+    'yearFrom',
+    'yearTo',
+    'ratingFrom',
+    'ratingTo',
+] as const
 
 export const useSearchParamsManager = () => {
     const [searchParams, setSearchParams] = useRouterSearchParams()
@@ -16,15 +22,18 @@ export const useSearchParamsManager = () => {
         return () => clearTimeout(handler)
     }, [queryTerm])
 
-    const preserveFilterParams = useCallback((newParams: URLSearchParams) => {
-        FILTER_PARAMS.forEach(param => {
-            const value = searchParams.get(param)
-            if (value) {
-                newParams.set(param, value)
-            }
-        })
-        return newParams
-    }, [searchParams])
+    const preserveFilterParams = useCallback(
+        (newParams: URLSearchParams) => {
+            FILTER_PARAMS.forEach((param) => {
+                const value = searchParams.get(param)
+                if (value) {
+                    newParams.set(param, value)
+                }
+            })
+            return newParams
+        },
+        [searchParams]
+    )
 
     const updatePage = useCallback(
         (newPage: number) => {

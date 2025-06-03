@@ -1,8 +1,9 @@
 import { Outlet } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import { LinearProgress } from '@mui/material'
-import { Header, ScrollToTopOnPathChange } from '@/components'
-import { useLoading } from '@/context/LoadingContext.tsx'
+import { Header } from '@/components/header/Header'
+import { ScrollToTopOnPathChange } from '@/components/ScrollToTopOnPathChange'
+import { useLoading } from '@/context/LoadingContext'
 
 function App() {
     const { loading } = useLoading()

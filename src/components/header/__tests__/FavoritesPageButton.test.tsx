@@ -2,14 +2,18 @@ jest.mock('react-router-dom', () => ({
     useNavigate: jest.fn(),
 }))
 
-jest.mock('@/components/', () => ({
-    Button: ({ children, onClick, ...props }: { 
-        children: React.ReactNode; 
-        onClick?: () => void; 
-        className?: string;
-        type?: 'button' | 'submit' | 'reset';
-        title?: string;
-        'aria-label'?: string;
+jest.mock('@/components/commons/Button', () => ({
+    Button: ({
+        children,
+        onClick,
+        ...props
+    }: {
+        children: React.ReactNode
+        onClick?: () => void
+        className?: string
+        type?: 'button' | 'submit' | 'reset'
+        title?: string
+        'aria-label'?: string
     }) => (
         <button onClick={onClick} {...props}>
             {children}
@@ -22,18 +26,22 @@ import { useNavigate } from 'react-router-dom'
 import { FavoritesPageButton } from '../FavoritesPageButton'
 
 jest.mock('../FavoritesPageButton', () => {
-    const MockButton = ({ 
-        children, 
+    const MockButton = ({
+        children,
         onClick,
-        ...props 
-    }: { 
-        children?: React.ReactNode;
-        onClick?: () => void;
-        type?: 'button' | 'submit' | 'reset';
-        'aria-label'?: string;
-        title?: string;
-        className?: string;
-    }) => <button onClick={onClick} {...props}>{children}</button>
+        ...props
+    }: {
+        children?: React.ReactNode
+        onClick?: () => void
+        type?: 'button' | 'submit' | 'reset'
+        'aria-label'?: string
+        title?: string
+        className?: string
+    }) => (
+        <button onClick={onClick} {...props}>
+            {children}
+        </button>
+    )
 
     return {
         FavoritesPageButton: () => {
@@ -63,7 +71,7 @@ describe('FavoritesPageButton', () => {
 
     it('renders correctly with proper attributes', () => {
         render(<FavoritesPageButton />)
-        
+
         const button = screen.getByRole('button', { name: /favorites/i })
         expect(button).toBeInTheDocument()
         expect(button).toHaveAttribute('title', 'Favorites')
@@ -77,11 +85,11 @@ describe('FavoritesPageButton', () => {
 
     it('navigates to favorites page when clicked', () => {
         render(<FavoritesPageButton />)
-        
+
         const button = screen.getByRole('button')
         fireEvent.click(button)
-        
+
         expect(mockNavigate).toHaveBeenCalledTimes(1)
         expect(mockNavigate).toHaveBeenCalledWith('/favorites')
     })
-}) 
+})

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Chevron from '@/assets/svg/chevron.svg?react'
 import { GENRE_NAMES, type GenreName } from '@/constants/filtering'
-import { Button } from '@/components/'
+import { Button } from '@/components/commons/Button'
 
 interface Filters {
     genre: GenreName[]

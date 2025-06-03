@@ -9,7 +9,5 @@ export const toMovieCardData = (
     poster_path: movie.poster_path,
     release_date: movie.release_date,
     vote_average: movie.vote_average,
-    genres: 'genres' in movie
-        ? movie.genres.map((g) => g.name)
-        : undefined,
+    genres: 'genres' in movie ? movie.genres.map((g) => g.name) : undefined,
 })

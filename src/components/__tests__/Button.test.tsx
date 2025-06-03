@@ -10,7 +10,9 @@ describe('Button', () => {
     })
 
     it('renders different variants correctly', () => {
-        const { rerender } = render(<Button variant="secondary">Secondary</Button>)
+        const { rerender } = render(
+            <Button variant="secondary">Secondary</Button>
+        )
         expect(screen.getByRole('button')).toHaveClass('bg-gray-100')
 
         rerender(<Button variant="danger">Danger</Button>)
@@ -46,16 +48,20 @@ describe('Button', () => {
     it('handles click events', () => {
         const handleClick = jest.fn()
         render(<Button onClick={handleClick}>Click me</Button>)
-        
+
         fireEvent.click(screen.getByRole('button'))
         expect(handleClick).toHaveBeenCalledTimes(1)
     })
 
     it('does not trigger click when disabled', () => {
         const handleClick = jest.fn()
-        render(<Button disabled onClick={handleClick}>Click me</Button>)
-        
+        render(
+            <Button disabled onClick={handleClick}>
+                Click me
+            </Button>
+        )
+
         fireEvent.click(screen.getByRole('button'))
         expect(handleClick).not.toHaveBeenCalled()
     })
-}) 
+})

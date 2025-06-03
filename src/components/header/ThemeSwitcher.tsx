@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import MoonIcon from '@/assets/svg/moon.svg?react'
 import SunIcon from '@/assets/svg/Sun.svg?react'
 import { useLocalStorageState } from '@/hooks/useLocalStorageState'
-import { Button } from '@/components/'
+import { Button } from '@/components/commons/Button'
 
 export const ThemeSwitcher = () => {
     const getInitialIsDarkMode = () => {

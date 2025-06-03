@@ -6,12 +6,21 @@ import type { GenreName } from '@/constants/filtering'
 
 export type MovieFilters = typeof DEFAULT_FILTERS
 
-const FILTER_PARAMS = ['genres', 'yearFrom', 'yearTo', 'ratingFrom', 'ratingTo'] as const
-type FilterParam = typeof FILTER_PARAMS[number]
+const FILTER_PARAMS = [
+    'genres',
+    'yearFrom',
+    'yearTo',
+    'ratingFrom',
+    'ratingTo',
+] as const
+type FilterParam = (typeof FILTER_PARAMS)[number]
 
 const serializeFilters = (filters: MovieFilters) => {
-    const params: Record<FilterParam, string> = {} as Record<FilterParam, string>
-    
+    const params: Record<FilterParam, string> = {} as Record<
+        FilterParam,
+        string
+    >
+
     if (filters.genre.length > 0) {
         params.genres = filters.genre.join(',')
     }
@@ -27,7 +36,7 @@ const serializeFilters = (filters: MovieFilters) => {
     if (filters.rating.to) {
         params.ratingTo = filters.rating.to
     }
-    
+
     return params
 }
 
@@ -48,16 +57,20 @@ const deserializeFilters = (searchParams: URLSearchParams): MovieFilters => {
 
 export const useMovieFilters = (movies: MovieSearchResult[]) => {
     const [searchParams, setSearchParams] = useSearchParams()
-    const initialFilters = useMemo(() => deserializeFilters(searchParams), [searchParams])
-    
+    const initialFilters = useMemo(
+        () => deserializeFilters(searchParams),
+        [searchParams]
+    )
+
     const [filters, setFilters] = useState<MovieFilters>(initialFilters)
-    const [appliedFilters, setAppliedFilters] = useState<MovieFilters>(initialFilters)
+    const [appliedFilters, setAppliedFilters] =
+        useState<MovieFilters>(initialFilters)
 
     const applyFilters = () => {
         setAppliedFilters(filters)
         setSearchParams((prev) => {
             const newParams = new URLSearchParams(prev)
-            FILTER_PARAMS.forEach(param => {
+            FILTER_PARAMS.forEach((param) => {
                 newParams.delete(param)
             })
             const filterParams = serializeFilters(filters)
@@ -75,7 +88,7 @@ export const useMovieFilters = (movies: MovieSearchResult[]) => {
         setAppliedFilters(DEFAULT_FILTERS)
         setSearchParams((prev) => {
             const newParams = new URLSearchParams(prev)
-            FILTER_PARAMS.forEach(param => {
+            FILTER_PARAMS.forEach((param) => {
                 newParams.delete(param)
             })
             return newParams

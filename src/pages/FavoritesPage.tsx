@@ -1,6 +1,7 @@
 import { useFavorites } from '@/context/FavoritesContext'
-import { MovieCard } from '@/components/'
-import { useTitle } from '@/hooks/useTitle.tsx'
+import { MovieCard } from '@/components/MovieCard'
+import { useTitle } from '@/hooks/useTitle'
+import type { MovieSearchResult } from '@/types/api/movie'
 
 const FavoritesPage = () => {
     const { favorites } = useFavorites()
@@ -19,7 +20,10 @@ const FavoritesPage = () => {
                 ) : (
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 px-4">
                         {favorites.map((movie) => (
-                            <MovieCard key={movie.id} movie={movie} />
+                            <MovieCard
+                                key={movie.id}
+                                movie={movie as MovieSearchResult}
+                            />
                         ))}
                     </div>
                 )}

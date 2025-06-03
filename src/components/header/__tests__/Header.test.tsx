@@ -4,7 +4,14 @@ import { Header } from '@/components/header/Header'
 
 jest.mock('react-router-dom', () => ({
     useNavigate: jest.fn(),
-    Link: ({ to, children, ...props }: { to: string; children: React.ReactNode }) => (
+    Link: ({
+        to,
+        children,
+        ...props
+    }: {
+        to: string
+        children: React.ReactNode
+    }) => (
         <a href={to} {...props}>
             {children}
         </a>
@@ -12,10 +19,14 @@ jest.mock('react-router-dom', () => ({
 }))
 
 jest.mock('../SearchInput', () => ({
-    SearchInput: ({ value, onChange, onSearch }: { 
-        value: string; 
-        onChange: (value: string) => void;
-        onSearch: () => void;
+    SearchInput: ({
+        value,
+        onChange,
+        onSearch,
+    }: {
+        value: string
+        onChange: (value: string) => void
+        onSearch: () => void
     }) => (
         <input
             type="text"
@@ -33,7 +44,9 @@ jest.mock('../ThemeSwitcher', () => ({
 }))
 
 jest.mock('../FavoritesPageButton', () => ({
-    FavoritesPageButton: () => <button data-testid="favorites-button">Favorites</button>,
+    FavoritesPageButton: () => (
+        <button data-testid="favorites-button">Favorites</button>
+    ),
 }))
 
 jest.mock('@/hooks/useDebounce', () => ({
@@ -52,7 +65,10 @@ describe('Header', () => {
         render(<Header />)
 
         expect(screen.getByText('notflix')).toBeInTheDocument()
-        expect(screen.getByText('notflix').closest('a')).toHaveAttribute('href', '/')
+        expect(screen.getByText('notflix').closest('a')).toHaveAttribute(
+            'href',
+            '/'
+        )
 
         expect(screen.getByTestId('search-input')).toBeInTheDocument()
 
@@ -63,7 +79,7 @@ describe('Header', () => {
 
     it('navigates to search results when typing in search input', () => {
         render(<Header />)
-        
+
         const searchInput = screen.getByTestId('search-input')
         fireEvent.change(searchInput, { target: { value: 'test movie' } })
 
@@ -72,7 +88,7 @@ describe('Header', () => {
 
     it('does not navigate on empty search', () => {
         render(<Header />)
-        
+
         const searchInput = screen.getByTestId('search-input')
         fireEvent.change(searchInput, { target: { value: '   ' } })
 
@@ -81,7 +97,7 @@ describe('Header', () => {
 
     it('navigates immediately on Enter key', () => {
         render(<Header />)
-        
+
         const searchInput = screen.getByTestId('search-input')
         fireEvent.change(searchInput, { target: { value: 'instant search' } })
         fireEvent.keyDown(searchInput, { key: 'Enter' })
@@ -91,7 +107,7 @@ describe('Header', () => {
 
     it('has correct styling classes', () => {
         render(<Header />)
-        
+
         const header = screen.getByRole('banner')
         expect(header).toHaveClass(
             'sticky',
@@ -116,4 +132,4 @@ describe('Header', () => {
             'gap-3'
         )
     })
-}) 
+})

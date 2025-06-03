@@ -1,6 +1,6 @@
 import { memo } from 'react'
 import { Link } from 'react-router-dom'
-import { FavoritesToggleButton } from '@/components'
+import { FavoritesToggleButton } from '@/components/FavoritesToggleButton'
 import type { MovieSearchResult } from '@/types/api/movie'
 
 interface MovieCardProps {
