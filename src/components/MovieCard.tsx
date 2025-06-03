@@ -29,7 +29,7 @@ const MovieCardComponent = ({ movie }: MovieCardProps) => {
                     src={movie.poster_path}
                     alt={movie.title}
                     itemProp="image"
-                    className="w-full h-[300px] object-cover transition-transform duration-300 ease-in-out group-hover:scale-105  object-cover transition-transform duration-300 ease-in-out hover:scale-105 will-change-transform"
+                    className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-110  object-cover transition-transform duration-300 ease-in-out hover:scale-105 will-change-transform"
                 />
             </Link>
 
