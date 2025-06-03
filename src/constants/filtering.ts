@@ -1,4 +1,27 @@
-export const GENRE_MAP: Record<string, number> = {
+export const GENRE_NAMES = [
+    'Action',
+    'Adventure',
+    'Animation',
+    'Comedy',
+    'Crime',
+    'Documentary',
+    'Drama',
+    'Family',
+    'Fantasy',
+    'History',
+    'Horror',
+    'Music',
+    'Mystery',
+    'Romance',
+    'Science Fiction',
+    'Thriller',
+    'War',
+    'Western',
+] as const
+
+export type GenreName = (typeof GENRE_NAMES)[number]
+
+export const GENRE_MAP: Record<GenreName, number> = {
     Action: 28,
     Adventure: 12,
     Animation: 16,
@@ -19,8 +42,12 @@ export const GENRE_MAP: Record<string, number> = {
     Western: 37,
 }
 
+export const GENRE_MAP_REVERSE: Record<number, GenreName> = Object.fromEntries(
+    Object.entries(GENRE_MAP).map(([k, v]) => [v, k])
+) as Record<number, GenreName>
+
 export const DEFAULT_FILTERS = {
-    genre: [] as string[],
+    genre: [] as GenreName[],
     releaseDate: { from: '', to: '' },
     rating: { from: '', to: '' },
 }

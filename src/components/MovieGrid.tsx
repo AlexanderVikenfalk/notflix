@@ -1,7 +1,7 @@
-import { MovieCard, MovieCardSkeleton } from '@/components'
-import type { MovieSearchResult } from '@/types/interfaces'
-import { Pagination } from '@/components/pagination/Pagination'
 import { memo } from 'react'
+import { MovieCard, MovieCardSkeleton } from '@/components'
+import { Pagination } from '@/components/pagination/Pagination'
+import type { MovieSearchResult } from '@/types/interfaces'
 
 type Props = {
     movies: MovieSearchResult[]
@@ -22,22 +22,34 @@ export const MovieGridComponent = ({
 }: Props) => {
     return (
         <section className="max-w-7xl mx-auto py-7">
+            <h1 className="sr-only">
+                Movie list – page {currentPage} of {totalPages}
+            </h1>
+
             {loading ? (
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 px-8">
-                    {Array.from({ length: 12 }).map((_, i) => (
-                        <MovieCardSkeleton key={`skeleton-${i}`} />
+                <ul className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 px-8">
+                    {Array.from({ length: 10 }).map((_, i) => (
+                        <li key={`skeleton-${i}`}>
+                            <MovieCardSkeleton />
+                        </li>
                     ))}
-                </div>
+                </ul>
             ) : movies.length === 0 ? (
-                <p className="text-3xl text-gray-700 dark:text-white">
+                <p className="text-3xl text-gray-700 dark:text-white text-center mt-8">
                     {emptyMessage}
                 </p>
             ) : (
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 px-8">
+                <ul
+                    className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 px-8"
+                    itemScope
+                    itemType="https://schema.org/ItemList"
+                >
                     {movies.map((movie) => (
-                        <MovieCard key={movie.id} movie={movie} />
+                        <li key={movie.id} itemProp="itemListElement">
+                            <MovieCard movie={movie} />
+                        </li>
                     ))}
-                </div>
+                </ul>
             )}
 
             {!loading && totalPages > 1 && (
@@ -53,6 +65,5 @@ export const MovieGridComponent = ({
     )
 }
 
-MovieGridComponent.displayName = 'MovieCard'
-
+MovieGridComponent.displayName = 'MovieGridComponent'
 export const MovieGrid = memo(MovieGridComponent)

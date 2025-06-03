@@ -7,6 +7,7 @@ export interface ButtonProps
     variant?: ButtonVariant
     className?: string
     isLoading?: boolean
+    title?: string
 }
 
 export const Button = ({

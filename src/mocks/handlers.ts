@@ -75,6 +75,7 @@ export const handlers = [
 
         return HttpResponse.json(
             {
+                dates: movieSearchResponse.dates,
                 results: paginatedResults,
                 total_results: filteredResults.length,
                 total_pages: totalPages,

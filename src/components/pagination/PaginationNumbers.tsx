@@ -29,6 +29,7 @@ export const PaginationNumbers = ({
                     onClick={() => onPageChange(pageNum)}
                     disabled={disabled}
                     isActive={pageNum === currentPage}
+                    title={`Go to page ${pageNum}`}
                     aria-label={`Go to page ${pageNum}`}
                     aria-current={pageNum === currentPage ? 'page' : undefined}
                 >
