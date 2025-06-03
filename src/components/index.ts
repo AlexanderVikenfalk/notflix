@@ -14,4 +14,4 @@ export { SearchHeader } from './search/SearchHeader.tsx'
 
 export { Button } from './commons/Button.tsx'
 
-export { ScrollToTop } from './ScrollToTop.tsx'
+export { ScrollToTopOnPathChange } from './ScrollToTopOnPathChange.tsx'

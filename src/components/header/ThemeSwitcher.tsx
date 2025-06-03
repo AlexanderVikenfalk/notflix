@@ -14,7 +14,7 @@ export const ThemeSwitcher = () => {
 
     const [isDarkMode, setIsDarkMode] = useLocalStorageState<boolean>(
         getInitialIsDarkMode(),
-        'theme'
+        'dark'
     )
 
     useEffect(() => {

@@ -5,28 +5,26 @@ import {
     useEffect,
     type ReactNode,
 } from 'react'
-import type {
-    FavoriteMovie,
-    MovieDetails,
-    MovieSearchResult,
-} from '@/types/interfaces'
+import type { MovieDetails, MovieSearchResult } from '@/types/api/movie'
+import type { MovieCardData } from '@/types/ui/movieCard'
+import { toMovieCardData } from '@/utils/normalizeMovie'
 
 const STORAGE_KEY = 'favorites'
 
 interface FavoritesState {
-    favorites: FavoriteMovie[]
+    favorites: MovieCardData[]
 }
+
+type FavoritesAction =
+    | { type: 'ADD_FAVORITE'; payload: MovieCardData }
+    | { type: 'REMOVE_FAVORITE'; payload: number }
+    | { type: 'LOAD_FAVORITES'; payload: MovieCardData[] }
 
 interface FavoritesContextType extends FavoritesState {
     addFavorite: (movie: MovieDetails | MovieSearchResult) => void
     removeFavorite: (id: number) => void
     isFavorite: (id: number) => boolean
 }
-
-type FavoritesAction =
-    | { type: 'ADD_FAVORITE'; payload: FavoriteMovie }
-    | { type: 'REMOVE_FAVORITE'; payload: number }
-    | { type: 'LOAD_FAVORITES'; payload: FavoriteMovie[] }
 
 const initialState: FavoritesState = {
     favorites: [],
@@ -43,29 +41,22 @@ function favoritesReducer(
     switch (action.type) {
         case 'LOAD_FAVORITES':
             return { favorites: action.payload }
-
-        case 'ADD_FAVORITE': {
-            const exists = state.favorites.some(
-                (m) => m.id === action.payload.id
-            )
-            if (exists) return state
-            return { favorites: [...state.favorites, action.payload] }
-        }
-
-        case 'REMOVE_FAVORITE': {
+        case 'ADD_FAVORITE':
+            return state.favorites.some((m) => m.id === action.payload.id)
+                ? state
+                : { favorites: [...state.favorites, action.payload] }
+        case 'REMOVE_FAVORITE':
             return {
                 favorites: state.favorites.filter(
                     (m) => m.id !== action.payload
                 ),
             }
-        }
-
         default:
             return state
     }
 }
 
-const loadFavoritesFromStorage = (): FavoriteMovie[] => {
+const loadFavoritesFromStorage = (): MovieCardData[] => {
     try {
         const stored = localStorage.getItem(STORAGE_KEY)
         return stored ? JSON.parse(stored) : []
@@ -75,7 +66,7 @@ const loadFavoritesFromStorage = (): FavoriteMovie[] => {
     }
 }
 
-const saveFavoritesToStorage = (favorites: FavoriteMovie[]) => {
+const saveFavoritesToStorage = (favorites: MovieCardData[]) => {
     try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(favorites))
     } catch {
@@ -98,12 +89,7 @@ export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
     }, [state.favorites])
 
     const addFavorite = (movie: MovieDetails | MovieSearchResult) => {
-        const normalized: FavoriteMovie = {
-            id: movie.id,
-            title: movie.title,
-            poster_path: movie.poster_path,
-            release_date: movie.release_date,
-        }
+        const normalized = toMovieCardData(movie)
         dispatch({ type: 'ADD_FAVORITE', payload: normalized })
     }
 
@@ -117,12 +103,7 @@ export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
 
     return (
         <FavoritesContext.Provider
-            value={{
-                ...state,
-                addFavorite,
-                removeFavorite,
-                isFavorite,
-            }}
+            value={{ ...state, addFavorite, removeFavorite, isFavorite }}
         >
             {children}
         </FavoritesContext.Provider>
@@ -131,7 +112,7 @@ export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
 
 export const useFavorites = () => {
     const context = useContext(FavoritesContext)
-    if (context === undefined) {
+    if (!context) {
         throw new Error('useFavorites must be used within a FavoritesProvider')
     }
     return context

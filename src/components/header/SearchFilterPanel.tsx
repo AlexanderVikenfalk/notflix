@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import Chevron from '@/assets/svg/chevron.svg?react'
-import { GENRES } from '@/constants/pagination.ts'
+import { GENRE_NAMES, type GenreName } from '@/constants/filtering'
 import { Button } from '@/components/'
 
 interface Filters {
-    genre: string[]
+    genre: GenreName[]
     releaseDate: { from: string; to: string }
     rating: { from: string; to: string }
 }
@@ -22,7 +22,7 @@ export const SearchFilterPanel = ({
 }: SearchFilterPanelProps) => {
     const [isExpanded, setIsExpanded] = useState(false)
 
-    const handleGenreToggle = (genre: string) => {
+    const handleGenreToggle = (genre: GenreName) => {
         const newGenres = filters.genre.includes(genre)
             ? filters.genre.filter((g) => g !== genre)
             : [...filters.genre, genre]
@@ -64,6 +64,16 @@ export const SearchFilterPanel = ({
         filters.releaseDate.to ||
         filters.rating.from ||
         filters.rating.to
+
+    const isInvalidYearRange =
+        !!filters.releaseDate.from &&
+        !!filters.releaseDate.to &&
+        parseInt(filters.releaseDate.to) < parseInt(filters.releaseDate.from)
+
+    const isInvalidRatingRange =
+        !!filters.rating.from &&
+        !!filters.rating.to &&
+        parseFloat(filters.rating.to) < parseFloat(filters.rating.from)
 
     return (
         <div className="mb-6 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 shadow-sm">
@@ -152,14 +162,17 @@ export const SearchFilterPanel = ({
                             value=""
                             onChange={(e) => {
                                 if (e.target.value) {
-                                    handleGenreToggle(e.target.value)
+                                    handleGenreToggle(
+                                        e.target.value as GenreName
+                                    )
                                     e.target.value = ''
                                 }
                             }}
                         >
                             <option value="">Add genre...</option>
-                            {GENRES.filter(
-                                (genre) => !filters.genre.includes(genre)
+                            {GENRE_NAMES.filter(
+                                (genre: GenreName) =>
+                                    !filters.genre.includes(genre)
                             ).map((genre) => (
                                 <option key={genre} value={genre}>
                                     {genre}
@@ -266,7 +279,13 @@ export const SearchFilterPanel = ({
                     </div>
 
                     <div className="p-4 flex justify-end">
-                        <Button variant="primary" onClick={onApply}>
+                        <Button
+                            variant="primary"
+                            disabled={
+                                isInvalidYearRange || isInvalidRatingRange
+                            }
+                            onClick={onApply}
+                        >
                             Apply Filters
                         </Button>
                     </div>

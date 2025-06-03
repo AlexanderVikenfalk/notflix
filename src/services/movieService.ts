@@ -1,6 +1,6 @@
 import axiosInstance from '@/utils/axiosInstance'
 import type { AxiosResponse } from 'axios'
-import type { MovieSearchResponse, MovieDetails } from '@/types/interfaces'
+import type { MovieSearchResponse, MovieDetails } from '@/types/api/movie'
 
 export const getMovies = (
     page: number

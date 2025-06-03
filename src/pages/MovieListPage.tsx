@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import useApi from '@/hooks/useApi'
 import { getMovies } from '@/services/movieService'
 import { useTitle } from '@/hooks/useTitle'
-import type { MovieSearchResponse } from '@/types/interfaces'
+import type { MovieSearchResponse } from '@/types/api/movie'
 import { MovieGrid } from '@/components/MovieGrid'
 
 const MovieListPage = () => {

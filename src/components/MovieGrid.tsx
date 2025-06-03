@@ -1,7 +1,7 @@
 import { memo } from 'react'
 import { MovieCard, MovieCardSkeleton } from '@/components'
 import { Pagination } from '@/components/pagination/Pagination'
-import type { MovieSearchResult } from '@/types/interfaces'
+import type { MovieSearchResult } from '@/types/api/movie'
 
 type Props = {
     movies: MovieSearchResult[]

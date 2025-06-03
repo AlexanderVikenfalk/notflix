@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import type { MovieSearchResult } from '@/types/interfaces'
+import type { MovieSearchResult } from '@/types/api/movie'
 import { GENRE_MAP, DEFAULT_FILTERS } from '@/constants/filtering'
 
 export type MovieFilters = typeof DEFAULT_FILTERS

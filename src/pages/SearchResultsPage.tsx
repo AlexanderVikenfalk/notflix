@@ -11,7 +11,7 @@ import {
     EmptyState,
     MovieGrid,
 } from '@/components/'
-import type { MovieSearchResponse } from '@/types/interfaces'
+import type { MovieSearchResponse } from '@/types/api/movie'
 
 const SearchResultsPage = () => {
     const { debouncedQuery, page, updatePage, resetToFirstPage } =

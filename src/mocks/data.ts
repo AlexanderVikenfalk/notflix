@@ -1,4 +1,4 @@
-import type { MovieDetails, MovieSearchResponse } from '@/types/interfaces'
+import type { MovieDetails, MovieSearchResponse } from '@/types/api/movie'
 
 export const movieDetails: MovieDetails[] = [
     {

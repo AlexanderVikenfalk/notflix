@@ -4,7 +4,7 @@ import useApi from '@/hooks/useApi'
 import { useTitle } from '@/hooks/useTitle.tsx'
 import { getMovieById } from '@/services/movieService'
 import { FavoritesToggleButton, MovieDetailsSkeleton } from '@/components'
-import type { MovieDetails } from '@/types/interfaces'
+import type { MovieDetails } from '@/types/api/movie'
 
 const MovieDetailsPage = () => {
     const { id } = useParams<{ id: string }>()

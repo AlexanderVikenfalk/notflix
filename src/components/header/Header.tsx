@@ -35,7 +35,9 @@ export const Header = () => {
                             onChange={setInputValue}
                             onSearch={() => {
                                 if (inputValue.trim() !== '') {
-                                    navigate(`/search?q=${encodeURIComponent(inputValue)}`)
+                                    navigate(
+                                        `/search?q=${encodeURIComponent(inputValue)}`
+                                    )
                                 }
                             }}
                         />
@@ -46,7 +48,5 @@ export const Header = () => {
                 </div>
             </div>
         </header>
-
-
     )
 }

@@ -42,10 +42,6 @@ export const GENRE_MAP: Record<GenreName, number> = {
     Western: 37,
 }
 
-export const GENRE_MAP_REVERSE: Record<number, GenreName> = Object.fromEntries(
-    Object.entries(GENRE_MAP).map(([k, v]) => [v, k])
-) as Record<number, GenreName>
-
 export const DEFAULT_FILTERS = {
     genre: [] as GenreName[],
     releaseDate: { from: '', to: '' },

@@ -1,13 +1,12 @@
-import type { MovieSearchResult } from '@/types/interfaces'
-import { GENRE_MAP_REVERSE } from '@/constants/filtering'
+import type { MovieCardData } from '@/types/ui/movieCard'
 
 interface Props {
-    movie: MovieSearchResult
+    movie: MovieCardData
 }
 
 export const MovieCard = ({ movie }: Props) => {
     const releaseYear = movie.release_date?.slice(0, 4) || ''
-    const genres = movie.genre_ids?.map((id) => GENRE_MAP_REVERSE[id]) ?? []
+    const genres = movie.genres ?? []
 
     return (
         <article

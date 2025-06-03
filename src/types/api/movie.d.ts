@@ -35,12 +35,3 @@ export interface MovieDetails extends MovieSearchResult {
     director?: string
     cast?: string[]
 }
-
-type FavoriteMovie = {
-    id: number
-    title: string
-    poster_path: string
-    release_date: string
-}
-
-export type MovieForCard = MovieSearchResult | MovieDetails | FavoriteMovie
