@@ -17,7 +17,6 @@ export const useSearchParamsManager = () => {
     }, [queryTerm])
 
     const preserveFilterParams = useCallback((newParams: URLSearchParams) => {
-        // Preserve existing filter parameters
         FILTER_PARAMS.forEach(param => {
             const value = searchParams.get(param)
             if (value) {

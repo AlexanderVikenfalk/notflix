@@ -2,10 +2,12 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "test-utils": ["./utils/test-utils"],
       "@/*": ["src/*"]
     },
-    "types": ["node"]
+    "types": ["node", "jest"]
   },
+  "moduleResolution": "node",
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },
