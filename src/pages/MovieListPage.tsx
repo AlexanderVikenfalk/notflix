@@ -7,7 +7,7 @@ import { MovieGrid } from '@/components/MovieGrid'
 
 const MovieListPage = () => {
     const [currentPage, setCurrentPage] = useState(1)
-    const { data, request, loading } = useApi<MovieSearchResponse, [number]>(
+    const { data, request, loading } = useApi<MovieSearchResponse | undefined, [number]>(
         getMovies
     )
 
@@ -17,7 +17,7 @@ const MovieListPage = () => {
         request(currentPage)
     }, [currentPage])
 
-    const movies = data?.results ?? []
+    const movies = data?.results ?? undefined
     const totalPages = data?.total_pages ?? 1
 
     return (

@@ -5,7 +5,7 @@ import { Pagination } from '@/components/pagination/Pagination'
 import type { MovieSearchResult } from '@/types/api/movie'
 
 type Props = {
-    movies: MovieSearchResult[]
+    movies?: MovieSearchResult[]
     loading: boolean
     totalPages: number
     currentPage: number
@@ -21,13 +21,14 @@ export const MovieGridComponent = ({
     onPageChange,
     emptyMessage = 'No movies to display',
 }: Props) => {
+    console.log(movies)
     return (
         <section className="max-w-7xl mx-auto py-7">
             <h1 className="sr-only">
                 Movie list – page {currentPage} of {totalPages}
             </h1>
 
-            {loading ? (
+            {loading || movies === undefined ? (
                 <ul className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 px-8">
                     {Array.from({ length: 15 }).map((_, i) => (
                         <li key={`skeleton-${i}`}>
@@ -52,6 +53,7 @@ export const MovieGridComponent = ({
                     ))}
                 </ul>
             )}
+
 
             {!loading && totalPages > 1 && (
                 <div className="mt-6 flex justify-center">
