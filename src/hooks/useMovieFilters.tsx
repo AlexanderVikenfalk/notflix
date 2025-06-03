@@ -1,18 +1,85 @@
 import { useState, useMemo } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import type { MovieSearchResult } from '@/types/api/movie'
 import { GENRE_MAP, DEFAULT_FILTERS } from '@/constants/filtering'
+import type { GenreName } from '@/constants/filtering'
 
 export type MovieFilters = typeof DEFAULT_FILTERS
 
-export const useMovieFilters = (movies: MovieSearchResult[]) => {
-    const [filters, setFilters] = useState<MovieFilters>(DEFAULT_FILTERS)
-    const [appliedFilters, setAppliedFilters] =
-        useState<MovieFilters>(DEFAULT_FILTERS)
+const FILTER_PARAMS = ['genres', 'yearFrom', 'yearTo', 'ratingFrom', 'ratingTo'] as const
+type FilterParam = typeof FILTER_PARAMS[number]
 
-    const applyFilters = () => setAppliedFilters(filters)
+const serializeFilters = (filters: MovieFilters) => {
+    const params: Record<FilterParam, string> = {} as Record<FilterParam, string>
+    
+    if (filters.genre.length > 0) {
+        params.genres = filters.genre.join(',')
+    }
+    if (filters.releaseDate.from) {
+        params.yearFrom = filters.releaseDate.from
+    }
+    if (filters.releaseDate.to) {
+        params.yearTo = filters.releaseDate.to
+    }
+    if (filters.rating.from) {
+        params.ratingFrom = filters.rating.from
+    }
+    if (filters.rating.to) {
+        params.ratingTo = filters.rating.to
+    }
+    
+    return params
+}
+
+const deserializeFilters = (searchParams: URLSearchParams): MovieFilters => {
+    const genres = searchParams.get('genres')
+    return {
+        genre: genres ? (genres.split(',').filter(Boolean) as GenreName[]) : [],
+        releaseDate: {
+            from: searchParams.get('yearFrom') || '',
+            to: searchParams.get('yearTo') || '',
+        },
+        rating: {
+            from: searchParams.get('ratingFrom') || '',
+            to: searchParams.get('ratingTo') || '',
+        },
+    }
+}
+
+export const useMovieFilters = (movies: MovieSearchResult[]) => {
+    const [searchParams, setSearchParams] = useSearchParams()
+    const initialFilters = useMemo(() => deserializeFilters(searchParams), [searchParams])
+    
+    const [filters, setFilters] = useState<MovieFilters>(initialFilters)
+    const [appliedFilters, setAppliedFilters] = useState<MovieFilters>(initialFilters)
+
+    const applyFilters = () => {
+        setAppliedFilters(filters)
+        setSearchParams((prev) => {
+            const newParams = new URLSearchParams(prev)
+            FILTER_PARAMS.forEach(param => {
+                newParams.delete(param)
+            })
+            const filterParams = serializeFilters(filters)
+            Object.entries(filterParams).forEach(([key, value]) => {
+                if (value) {
+                    newParams.set(key, value)
+                }
+            })
+            return newParams
+        })
+    }
+
     const resetFilters = () => {
         setFilters(DEFAULT_FILTERS)
         setAppliedFilters(DEFAULT_FILTERS)
+        setSearchParams((prev) => {
+            const newParams = new URLSearchParams(prev)
+            FILTER_PARAMS.forEach(param => {
+                newParams.delete(param)
+            })
+            return newParams
+        })
     }
 
     const filteredMovies = useMemo(() => {

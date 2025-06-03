@@ -1,5 +1,3 @@
-// types related to the UI
-
 export interface MovieCardData {
     id: number
     title: string
