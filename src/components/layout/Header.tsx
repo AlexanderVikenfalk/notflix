@@ -1,20 +1,28 @@
-import { Link, useNavigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import { useDebounce } from '@/hooks/useDebounce'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import { SearchInput } from '../search/SearchInput'
 import { ThemeSwitcher } from '../common/ThemeSwitcher'
 import { FavoritesButton } from './FavoritesButton'
+import { useSearch } from '@/contexts/SearchContext'
 
 export const Header = () => {
     const navigate = useNavigate()
-    const [inputValue, setInputValue] = useState('')
-    const debouncedValue = useDebounce(inputValue, 500)
+    const location = useLocation()
+    const { query, setQuery } = useSearch()
+    const [inputValue, setInputValue] = useState(query)
 
     useEffect(() => {
-        if (debouncedValue.trim() !== '') {
-            navigate(`/search?q=${encodeURIComponent(debouncedValue)}`)
+        setInputValue(query)
+    }, [query])
+
+    const handleChange = (value: string) => {
+        setInputValue(value)
+        setQuery(value)
+
+        if (location.pathname !== '/search') {
+            navigate('/search')
         }
-    }, [debouncedValue, navigate])
+    }
 
     return (
         <header className="sticky top-0 z-100 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
@@ -32,7 +40,7 @@ export const Header = () => {
                     <div className="max-w-xs w-full">
                         <SearchInput
                             value={inputValue}
-                            onChange={setInputValue}
+                            onChange={handleChange}
                         />
                     </div>
 

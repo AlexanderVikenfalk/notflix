@@ -1,4 +1,4 @@
-import { useFavorites } from '@/context/FavoritesContext'
+import { useFavorites } from '@/contexts/FavoritesContext'
 import { MovieCard } from '@/components/movie/MovieCard'
 import { useTitle } from '@/hooks/useTitle'
 import type { MovieSearchResult } from '@/types/api/movie'

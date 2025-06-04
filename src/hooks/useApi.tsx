@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useLoading } from '@/context/LoadingContext'
+import { useLoading } from '@/contexts/LoadingContext'
 import type { AxiosResponse } from 'axios'
 
 type ApiService<TData, TArgs extends unknown[] = unknown[]> = (

@@ -7,7 +7,7 @@ import {
 } from 'react'
 import type { MovieDetails, MovieSearchResult } from '@/types/api/movie'
 import type { MovieCardData } from '@/types/ui/movieCard'
-import { toMovieCardData } from '@/utils/normalizeMovie'
+import { toMovieCardData } from '@/utils/normalizeMovie.ts'
 
 const STORAGE_KEY = 'favorites'
 

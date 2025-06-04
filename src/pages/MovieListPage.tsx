@@ -1,12 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import useApi from '@/hooks/useApi'
 import { getMovies } from '@/services/movieService'
 import { useTitle } from '@/hooks/useTitle'
 import type { MovieSearchResponse } from '@/types/api/movie'
 import { MovieGrid } from '@/components/movie/MovieGrid'
+import { useSearch } from '@/contexts/SearchContext.tsx'
 
 const MovieListPage = () => {
-    const [currentPage, setCurrentPage] = useState(1)
+    const { page, setPage } = useSearch()
+
     const { data, request, loading } = useApi<
         MovieSearchResponse | undefined,
         [number]
@@ -15,8 +17,8 @@ const MovieListPage = () => {
     useTitle('Home')
 
     useEffect(() => {
-        request(currentPage)
-    }, [currentPage])
+        request(page)
+    }, [page])
 
     const movies = data?.results ?? undefined
     const totalPages = data?.total_pages ?? 1
@@ -27,8 +29,8 @@ const MovieListPage = () => {
                 movies={movies}
                 loading={loading}
                 totalPages={totalPages}
-                currentPage={currentPage}
-                onPageChange={setCurrentPage}
+                currentPage={page}
+                onPageChange={setPage}
             />
         </main>
     )

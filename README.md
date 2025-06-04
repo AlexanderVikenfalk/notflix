@@ -15,7 +15,7 @@ A responsive, accessible, and filterable movie search and details application bu
 -  Filter search results by genre, release year, and rating
 -  Pagination with smooth scroll to top
 -  Theme toggle (light/dark mode)
--  Global loading context with top loader
+-  Loading with skeleton loader
 -  Typed API services with error handling and mock support
 
 ## Tech Stack
@@ -55,22 +55,57 @@ A responsive, accessible, and filterable movie search and details application bu
 ## Project Structure
 
 ```
-src/
-├── assets/            # Static images and icons
-├── components/        # Shared UI components (e.g., Button, Header)
-├── context/           # Global state (e.g., FavoritesContext)
-├── hooks/             # Custom React hooks
-├── pages/             # Route-level components
-├── services/          # API layer
-├── types/             # TypeScript interfaces and types
-├── utils/             # Utility functions (e.g., classNames)
-├── App.tsx            # Main app layout
-├── main.tsx           # React entry point
+notflix/
+├── public/
+│   ├── assets/
+│   │   ├── images/
+│   │   └── svg/
+│   └── mockServiceWorker.js
+├── src/
+│   ├── components/
+│   │   ├── header/
+│   │   ├── skeletons/
+│   │   ├── pagination/
+│   │   └── MovieCard.tsx
+│   ├── context/
+│   ├── hooks/
+│   ├── pages/
+│   │   ├── MovieListPage.tsx
+│   │   ├── MovieDetailsPage.tsx
+│   │   └── FavoritesPage.tsx
+│   ├── services/
+│   │   └── movieService.ts
+│   ├── types/
+│   │   ├── api/
+│   │   └── ui/
+│   ├── utils/
+│   └── App.tsx
+├── tests/
+│   ├── __mocks__/
+│   ├── integration/
+│   └── unit/
+├── .eslintrc.json
+├── jest.config.ts
+├── tsconfig.json
+├── tsconfig.test.json
+├── vite.config.ts
+├── README.md
+└── package.json
 ```
 
 ## Notes
 
 - Movie data is fetched from a mocked API using `msw` handlers.
 - URL query parameters control search term and page number for shareable URLs.
-- Errors are triggered twice due to invoking <request()/> inside of a <useEffect()/> hook while running in <StrictMode />. This is the intended behavior ([Read more here](https://legacy.reactjs.org/docs/strict-mode.html#ensuring-reusable-state))
+- Errors are triggered twice due to invoking <request()/> inside <useEffect()/> hook while running in <StrictMode />. This is the intended behavior ([Read more here](https://legacy.reactjs.org/docs/strict-mode.html#ensuring-reusable-state))
 
+## Consideration
+Choosing Schema for better SEO
+Choosing MRW for mocking
+Axios for netowkr requests
+Tailwind for design
+
+## Improvments
+Improved image optimization - https://benhoneywill.com/progressive-image-loading-with-react-hooks/ (again… this is just a detail)
+Data transformation with ZOD
+React-query instead of Axios

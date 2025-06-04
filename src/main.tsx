@@ -1,8 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
-import { LoadingProvider } from '@/context/LoadingContext'
-import { FavoritesProvider } from '@/context/FavoritesContext'
+import { LoadingProvider } from '@/contexts/LoadingContext'
+import { FavoritesProvider } from '@/contexts/FavoritesContext'
 import { router } from './router'
 import './styles/main.css'
 
