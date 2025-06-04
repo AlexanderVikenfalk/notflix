@@ -1,9 +1,11 @@
 import { render, screen, fireEvent } from '@testing-library/react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { Header } from '@/components/layout/Header'
+import { useSearch } from '@/contexts/SearchContext'
 
 jest.mock('react-router-dom', () => ({
     useNavigate: jest.fn(),
+    useLocation: jest.fn(),
     Link: ({
         to,
         children,
@@ -18,21 +20,22 @@ jest.mock('react-router-dom', () => ({
     ),
 }))
 
+jest.mock('@/contexts/SearchContext', () => ({
+    useSearch: jest.fn(),
+}))
+
 jest.mock('../../search/SearchInput', () => ({
     SearchInput: ({
         value,
         onChange,
-        onSearch,
     }: {
         value: string
         onChange: (value: string) => void
-        onSearch: () => void
     }) => (
         <input
             type="text"
             value={value}
             onChange={(e) => onChange(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && onSearch()}
             placeholder="Search movies..."
             data-testid="search-input"
         />
@@ -49,16 +52,18 @@ jest.mock('../FavoritesButton', () => ({
     ),
 }))
 
-jest.mock('@/hooks/useDebounce', () => ({
-    useDebounce: (value: string) => value,
-}))
-
 describe('Header', () => {
     const mockNavigate = jest.fn()
+    const mockSetQuery = jest.fn()
 
     beforeEach(() => {
         jest.clearAllMocks()
         ;(useNavigate as jest.Mock).mockReturnValue(mockNavigate)
+        ;(useLocation as jest.Mock).mockReturnValue({ pathname: '/' })
+        ;(useSearch as jest.Mock).mockReturnValue({
+            query: '',
+            setQuery: mockSetQuery,
+        })
     })
 
     it('renders all components correctly', () => {
@@ -71,38 +76,47 @@ describe('Header', () => {
         )
 
         expect(screen.getByTestId('search-input')).toBeInTheDocument()
-
         expect(screen.getByTestId('theme-switcher')).toBeInTheDocument()
-
         expect(screen.getByTestId('favorites-button')).toBeInTheDocument()
     })
 
-    it('navigates to search results when typing in search input', () => {
+    it('updates search query and navigates to search page when not on search page', () => {
         render(<Header />)
 
         const searchInput = screen.getByTestId('search-input')
         fireEvent.change(searchInput, { target: { value: 'test movie' } })
 
-        expect(mockNavigate).toHaveBeenCalledWith('/search?q=test%20movie')
+        expect(mockSetQuery).toHaveBeenCalledWith('test movie')
+        expect(mockNavigate).toHaveBeenCalledWith('/search')
     })
 
-    it('does not navigate on empty search', () => {
+    it('only updates search query when already on search page', () => {
+        ;(useLocation as jest.Mock).mockReturnValue({ pathname: '/search' })
         render(<Header />)
 
         const searchInput = screen.getByTestId('search-input')
-        fireEvent.change(searchInput, { target: { value: '   ' } })
+        fireEvent.change(searchInput, { target: { value: 'test movie' } })
 
+        expect(mockSetQuery).toHaveBeenCalledWith('test movie')
         expect(mockNavigate).not.toHaveBeenCalled()
     })
 
-    it('navigates immediately on Enter key', () => {
-        render(<Header />)
+    it('updates input value when query changes', () => {
+        ;(useSearch as jest.Mock).mockReturnValue({
+            query: 'initial query',
+            setQuery: mockSetQuery,
+        })
+        
+        const { rerender } = render(<Header />)
+        expect(screen.getByTestId('search-input')).toHaveValue('initial query')
 
-        const searchInput = screen.getByTestId('search-input')
-        fireEvent.change(searchInput, { target: { value: 'instant search' } })
-        fireEvent.keyDown(searchInput, { key: 'Enter' })
-
-        expect(mockNavigate).toHaveBeenCalledWith('/search?q=instant%20search')
+        ;(useSearch as jest.Mock).mockReturnValue({
+            query: 'updated query',
+            setQuery: mockSetQuery,
+        })
+        
+        rerender(<Header />)
+        expect(screen.getByTestId('search-input')).toHaveValue('updated query')
     })
 
     it('has correct styling classes', () => {
