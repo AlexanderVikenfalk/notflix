@@ -30,7 +30,7 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
 
     const setPage = (value: number) => {
         const safeValue = Math.max(1, value)
-        setSearchParams(prev => {
+        setSearchParams((prev) => {
             const newParams = new URLSearchParams(prev)
             newParams.set('page', safeValue.toString())
             return newParams
@@ -38,7 +38,7 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
     }
 
     const resetToFirstPage = () => {
-        setSearchParams(prev => {
+        setSearchParams((prev) => {
             const newParams = new URLSearchParams(prev)
             newParams.set('page', '1')
             return newParams
@@ -47,13 +47,13 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
 
     const setQuery = (value: string) => {
         if (value.trim()) {
-            setSearchParams(prev => {
+            setSearchParams((prev) => {
                 const newParams = new URLSearchParams(prev)
                 newParams.set('q', value)
                 return newParams
             })
         } else {
-            setSearchParams(prev => {
+            setSearchParams((prev) => {
                 const newParams = new URLSearchParams(prev)
                 newParams.delete('q')
                 return newParams
@@ -62,7 +62,7 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
     }
 
     const rawSetQuery = (value: string) => {
-        setSearchParams(prev => {
+        setSearchParams((prev) => {
             const newParams = new URLSearchParams(prev)
             if (value.trim()) {
                 newParams.set('q', value)
@@ -82,7 +82,7 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
                 page,
                 setPage,
                 debouncedQuery,
-                resetToFirstPage
+                resetToFirstPage,
             }}
         >
             {children}

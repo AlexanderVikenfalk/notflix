@@ -106,15 +106,14 @@ describe('Header', () => {
             query: 'initial query',
             setQuery: mockSetQuery,
         })
-        
+
         const { rerender } = render(<Header />)
         expect(screen.getByTestId('search-input')).toHaveValue('initial query')
-
         ;(useSearch as jest.Mock).mockReturnValue({
             query: 'updated query',
             setQuery: mockSetQuery,
         })
-        
+
         rerender(<Header />)
         expect(screen.getByTestId('search-input')).toHaveValue('updated query')
     })

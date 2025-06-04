@@ -37,7 +37,8 @@ const MovieDetailsPage = () => {
                         className="w-full rounded-lg shadow-lg"
                         loading="lazy"
                         onError={(e) => {
-                            e.currentTarget.src = '/assets/images/placeholder.webp'
+                            e.currentTarget.src =
+                                '/assets/images/placeholder.webp'
                         }}
                     />
                 </div>
