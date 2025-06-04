@@ -8,12 +8,13 @@ import { useSearch } from '@/contexts/SearchContext'
 import { SearchHeader } from '@/components/search/SearchHeader'
 import { EmptyState } from '@/components/search/EmptyState'
 import { MovieGrid } from '@/components/movie/MovieGrid'
+import { ErrorMessage } from '@/components/common/ErrorMessage'
 import type { MovieSearchResponse } from '@/types/api/movie'
 
 const SearchResultsPage = () => {
     const { debouncedQuery, page, setPage, resetToFirstPage } = useSearch()
 
-    const { data, request, loading } = useApi<
+    const { data, request, loading, error } = useApi<
         MovieSearchResponse,
         [string, number]
     >(searchMovies)
@@ -42,6 +43,19 @@ const SearchResultsPage = () => {
             void request(debouncedQuery, page)
         }
     }, [debouncedQuery, page])
+
+    if (error) {
+        return (
+            <ErrorMessage
+                title="Failed to load search results"
+                message={error}
+                action={{
+                    label: 'Try again',
+                    onClick: () => void request(debouncedQuery, page),
+                }}
+            />
+        )
+    }
 
     const shouldShowFilters = movies.length > 0
     const shouldShowEmptyState =
