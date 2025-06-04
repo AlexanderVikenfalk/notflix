@@ -1,4 +1,4 @@
-import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { SearchInput } from '../search/SearchInput'
 import { ThemeSwitcher } from '../common/ThemeSwitcher'
@@ -6,8 +6,6 @@ import { FavoritesButton } from './FavoritesButton'
 import { useSearch } from '@/contexts/SearchContext'
 
 export const Header = () => {
-    const navigate = useNavigate()
-    const location = useLocation()
     const { query, setQuery } = useSearch()
     const [inputValue, setInputValue] = useState(query)
 
@@ -18,10 +16,6 @@ export const Header = () => {
     const handleChange = (value: string) => {
         setInputValue(value)
         setQuery(value)
-
-        if (location.pathname !== '/search') {
-            navigate('/search')
-        }
     }
 
     return (
