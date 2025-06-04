@@ -15,6 +15,13 @@ interface SearchFilterPanelProps {
     onApply: () => void
 }
 
+const clampValue = (value: string, min: number, max: number): string => {
+    if (!value) return ''
+    const num = Number(value)
+    if (isNaN(num)) return ''
+    return Math.min(Math.max(num, min), max).toString()
+}
+
 export const SearchFilters = ({
     filters,
     onChange,
@@ -37,16 +44,19 @@ export const SearchFilters = ({
     }
 
     const handleReleaseDateChange = (field: 'from' | 'to', value: string) => {
+        const currentYear = new Date().getFullYear()
+        const clampedValue = clampValue(value, 1900, currentYear + 10)
         onChange({
             ...filters,
-            releaseDate: { ...filters.releaseDate, [field]: value },
+            releaseDate: { ...filters.releaseDate, [field]: clampedValue },
         })
     }
 
     const handleRatingChange = (field: 'from' | 'to', value: string) => {
+        const clampedValue = clampValue(value, 0, 10)
         onChange({
             ...filters,
-            rating: { ...filters.rating, [field]: value },
+            rating: { ...filters.rating, [field]: clampedValue },
         })
     }
 
