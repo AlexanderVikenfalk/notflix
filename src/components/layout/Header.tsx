@@ -33,13 +33,6 @@ export const Header = () => {
                         <SearchInput
                             value={inputValue}
                             onChange={setInputValue}
-                            onSearch={() => {
-                                if (inputValue.trim() !== '') {
-                                    navigate(
-                                        `/search?q=${encodeURIComponent(inputValue)}`
-                                    )
-                                }
-                            }}
                         />
                     </div>
 
