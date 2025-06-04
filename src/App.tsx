@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
-import { Header } from '@/components/header/Header'
-import { ScrollToTopOnPathChange } from '@/components/ScrollToTopOnPathChange'
+import { Header } from '@/components/layout/Header'
+import { ScrollToTopOnPathChange } from '@/components/common/ScrollToTopOnPathChange'
 
 function App() {
     return (

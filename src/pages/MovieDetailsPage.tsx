@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import useApi from '@/hooks/useApi'
 import { useTitle } from '@/hooks/useTitle'
 import { getMovieById } from '@/services/movieService'
-import { FavoritesToggleButton } from '@/components/FavoritesToggleButton'
+import { FavoritesToggle } from '@/components/movie/FavoritesToggle'
 import { MovieDetailsSkeleton } from '@/components/skeletons/MovieDetailsSkeleton'
 import type { MovieDetails } from '@/types/api/movie'
 
@@ -35,6 +35,10 @@ const MovieDetailsPage = () => {
                         }
                         alt={movie.title}
                         className="w-full rounded-lg shadow-lg"
+                        loading="lazy"
+                        onError={(e) => {
+                            e.currentTarget.src = '/assets/images/placeholder.webp'
+                        }}
                     />
                 </div>
 
@@ -78,7 +82,7 @@ const MovieDetailsPage = () => {
                     </div>
 
                     <div className="mb-4">
-                        <FavoritesToggleButton movie={movie} />
+                        <FavoritesToggle movie={movie} />
                     </div>
 
                     <p className="text-base leading-relaxed text-gray-700 dark:text-gray-200 mb-6">

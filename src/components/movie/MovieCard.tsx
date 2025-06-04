@@ -1,6 +1,6 @@
 import { memo } from 'react'
 import { Link } from 'react-router-dom'
-import { FavoritesToggleButton } from '@/components/FavoritesToggleButton'
+import { FavoritesToggle } from '@/components/movie/FavoritesToggle'
 import type { MovieSearchResult } from '@/types/api/movie'
 
 interface MovieCardProps {
@@ -17,7 +17,7 @@ const MovieCardComponent = ({ movie }: MovieCardProps) => {
             itemType="https://schema.org/Movie"
         >
             <div className="absolute top-2 right-2 z-10">
-                <FavoritesToggleButton movie={movie} />
+                <FavoritesToggle movie={movie} />
             </div>
 
             <Link
@@ -29,6 +29,10 @@ const MovieCardComponent = ({ movie }: MovieCardProps) => {
                     src={movie.poster_path}
                     alt={movie.title}
                     itemProp="image"
+                    loading="lazy"
+                    onError={(e) => {
+                        e.currentTarget.src = '/assets/images/placeholder.webp'
+                    }}
                     className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-110  object-cover transition-transform duration-300 ease-in-out hover:scale-105 will-change-transform"
                 />
             </Link>

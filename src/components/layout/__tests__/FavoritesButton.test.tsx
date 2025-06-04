@@ -2,7 +2,7 @@ jest.mock('react-router-dom', () => ({
     useNavigate: jest.fn(),
 }))
 
-jest.mock('@/components/commons/Button', () => ({
+jest.mock('@/components/common/Button', () => ({
     Button: ({
         children,
         onClick,
@@ -23,9 +23,9 @@ jest.mock('@/components/commons/Button', () => ({
 
 import { render, screen, fireEvent } from '@testing-library/react'
 import { useNavigate } from 'react-router-dom'
-import { FavoritesPageButton } from '../FavoritesPageButton'
+import { FavoritesButton } from '../FavoritesButton'
 
-jest.mock('../FavoritesPageButton', () => {
+jest.mock('../FavoritesButton', () => {
     const MockButton = ({
         children,
         onClick,
@@ -44,7 +44,7 @@ jest.mock('../FavoritesPageButton', () => {
     )
 
     return {
-        FavoritesPageButton: () => {
+        FavoritesButton: () => {
             const navigate = jest.requireMock('react-router-dom').useNavigate()
             return (
                 <MockButton
@@ -61,7 +61,7 @@ jest.mock('../FavoritesPageButton', () => {
     }
 })
 
-describe('FavoritesPageButton', () => {
+describe('FavoritesButton', () => {
     const mockNavigate = jest.fn()
 
     beforeEach(() => {
@@ -70,7 +70,7 @@ describe('FavoritesPageButton', () => {
     })
 
     it('renders correctly with proper attributes', () => {
-        render(<FavoritesPageButton />)
+        render(<FavoritesButton />)
 
         const button = screen.getByRole('button', { name: /favorites/i })
         expect(button).toBeInTheDocument()
@@ -84,7 +84,7 @@ describe('FavoritesPageButton', () => {
     })
 
     it('navigates to favorites page when clicked', () => {
-        render(<FavoritesPageButton />)
+        render(<FavoritesButton />)
 
         const button = screen.getByRole('button')
         fireEvent.click(button)

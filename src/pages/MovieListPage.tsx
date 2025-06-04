@@ -3,13 +3,14 @@ import useApi from '@/hooks/useApi'
 import { getMovies } from '@/services/movieService'
 import { useTitle } from '@/hooks/useTitle'
 import type { MovieSearchResponse } from '@/types/api/movie'
-import { MovieGrid } from '@/components/MovieGrid'
+import { MovieGrid } from '@/components/movie/MovieGrid'
 
 const MovieListPage = () => {
     const [currentPage, setCurrentPage] = useState(1)
-    const { data, request, loading } = useApi<MovieSearchResponse | undefined, [number]>(
-        getMovies
-    )
+    const { data, request, loading } = useApi<
+        MovieSearchResponse | undefined,
+        [number]
+    >(getMovies)
 
     useTitle('Home')
 

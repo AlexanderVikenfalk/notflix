@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Chevron from '@/assets/svg/chevron.svg?react'
-import { GENRE_NAMES, type GenreName } from '@/constants/filtering'
-import { Button } from '@/components/commons/Button'
+import { GENRE_NAMES, type GenreName } from '@/constants/filtering.ts'
+import { Button } from '@/components/common/Button'
 
 interface Filters {
     genre: GenreName[]
@@ -15,7 +15,7 @@ interface SearchFilterPanelProps {
     onApply: () => void
 }
 
-export const SearchFilterPanel = ({
+export const SearchFilters = ({
     filters,
     onChange,
     onApply,

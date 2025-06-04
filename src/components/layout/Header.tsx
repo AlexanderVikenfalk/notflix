@@ -1,9 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { useDebounce } from '@/hooks/useDebounce'
-import { SearchInput } from './SearchInput'
-import { ThemeSwitcher } from './ThemeSwitcher'
-import { FavoritesPageButton } from './FavoritesPageButton'
+import { SearchInput } from '../search/SearchInput'
+import { ThemeSwitcher } from '../common/ThemeSwitcher'
+import { FavoritesButton } from './FavoritesButton'
 
 export const Header = () => {
     const navigate = useNavigate()
@@ -44,7 +44,7 @@ export const Header = () => {
                     </div>
 
                     <ThemeSwitcher />
-                    <FavoritesPageButton />
+                    <FavoritesButton />
                 </div>
             </div>
         </header>

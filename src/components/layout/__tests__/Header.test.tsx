@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { useNavigate } from 'react-router-dom'
-import { Header } from '@/components/header/Header'
+import { Header } from '@/components/layout/Header'
 
 jest.mock('react-router-dom', () => ({
     useNavigate: jest.fn(),
@@ -18,7 +18,7 @@ jest.mock('react-router-dom', () => ({
     ),
 }))
 
-jest.mock('../SearchInput', () => ({
+jest.mock('../../search/SearchInput', () => ({
     SearchInput: ({
         value,
         onChange,
@@ -39,12 +39,12 @@ jest.mock('../SearchInput', () => ({
     ),
 }))
 
-jest.mock('../ThemeSwitcher', () => ({
+jest.mock('../../common/ThemeSwitcher', () => ({
     ThemeSwitcher: () => <button data-testid="theme-switcher">Theme</button>,
 }))
 
-jest.mock('../FavoritesPageButton', () => ({
-    FavoritesPageButton: () => (
+jest.mock('../FavoritesButton', () => ({
+    FavoritesButton: () => (
         <button data-testid="favorites-button">Favorites</button>
     ),
 }))

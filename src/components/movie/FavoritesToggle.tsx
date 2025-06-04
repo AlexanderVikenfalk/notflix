@@ -3,7 +3,7 @@ import HeartIcon from '@/assets/svg/heart.svg?react'
 import { useFavorites } from '@/context/FavoritesContext'
 import type { MovieDetails, MovieSearchResult } from '@/types/api/movie'
 
-export const FavoritesToggleButton = ({
+export const FavoritesToggle = ({
     movie,
 }: {
     movie: MovieDetails | MovieSearchResult

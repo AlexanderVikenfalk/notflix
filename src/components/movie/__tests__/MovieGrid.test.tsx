@@ -1,24 +1,31 @@
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
-import { MovieGrid } from '@/components/MovieGrid'
+import { MovieGrid } from '@/components/movie/MovieGrid'
 import type { MovieSearchResult } from '@/types/api/movie'
 import userEvent from '@testing-library/user-event'
 
-// Mock the child components
-jest.mock('@/components/MovieCard', () => ({
+jest.mock('@/components/movie/MovieCard', () => ({
     MovieCard: ({ movie }: { movie: MovieSearchResult }) => (
-        <div data-testid="movie-card">
-            Movie: {movie.title}
-        </div>
+        <div data-testid="movie-card">Movie: {movie.title}</div>
     ),
 }))
 
 jest.mock('@/components/skeletons/MovieCardSkeleton', () => ({
-    MovieCardSkeleton: () => <div data-testid="movie-card-skeleton">Loading...</div>,
+    MovieCardSkeleton: () => (
+        <div data-testid="movie-card-skeleton">Loading...</div>
+    ),
 }))
 
 jest.mock('@/components/pagination/Pagination', () => ({
-    Pagination: ({ page, count, onChange }: { page: number; count: number; onChange: (page: number) => void }) => (
+    Pagination: ({
+        page,
+        count,
+        onChange,
+    }: {
+        page: number
+        count: number
+        onChange: (page: number) => void
+    }) => (
         <nav data-testid="pagination">
             <button onClick={() => onChange(page - 1)} disabled={page === 1}>
                 Previous
@@ -26,7 +33,10 @@ jest.mock('@/components/pagination/Pagination', () => ({
             <span>
                 Page {page} of {count}
             </span>
-            <button onClick={() => onChange(page + 1)} disabled={page === count}>
+            <button
+                onClick={() => onChange(page + 1)}
+                disabled={page === count}
+            >
                 Next
             </button>
         </nav>
@@ -121,7 +131,7 @@ describe('MovieGrid', () => {
         const list = screen.getByRole('list')
         expect(list).toHaveAttribute('itemType', 'https://schema.org/ItemList')
         const listItems = screen.getAllByRole('listitem')
-        listItems.forEach(item => {
+        listItems.forEach((item) => {
             expect(item).toHaveAttribute('itemProp', 'itemListElement')
         })
     })
@@ -145,10 +155,10 @@ describe('MovieGrid', () => {
     it('calls onPageChange when pagination is clicked', async () => {
         const onPageChange = jest.fn()
         renderMovieGrid({ totalPages: 3, currentPage: 2, onPageChange })
-        
+
         const user = userEvent.setup()
         await user.click(screen.getByText('Next'))
-        
+
         expect(onPageChange).toHaveBeenCalledWith(3)
     })
 
@@ -157,4 +167,4 @@ describe('MovieGrid', () => {
         const heading = screen.getByRole('heading', { level: 1 })
         expect(heading).toHaveTextContent('Movie list – page 2 of 3')
     })
-}) 
+})

@@ -2,12 +2,12 @@ import { useEffect } from 'react'
 import { useTitle } from '@/hooks/useTitle'
 import { searchMovies } from '@/services/movieService'
 import useApi from '@/hooks/useApi'
-import { SearchFilterPanel } from '@/components/header/SearchFilterPanel'
+import { SearchFilters } from '@/components/search/SearchFilters'
 import { useMovieFilters } from '@/hooks/useMovieFilters'
 import { useSearchParamsManager } from '@/hooks/useSearchParamsManager'
 import { SearchHeader } from '@/components/search/SearchHeader'
 import { EmptyState } from '@/components/search/EmptyState'
-import { MovieGrid } from '@/components/MovieGrid'
+import { MovieGrid } from '@/components/movie/MovieGrid'
 import type { MovieSearchResponse } from '@/types/api/movie'
 
 const SearchResultsPage = () => {
@@ -62,7 +62,7 @@ const SearchResultsPage = () => {
                 />
 
                 {shouldShowFilters && (
-                    <SearchFilterPanel
+                    <SearchFilters
                         filters={filters}
                         onChange={setFilters}
                         onApply={applyFilters}

@@ -1,11 +1,10 @@
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
-import { MovieCard } from '@/components/MovieCard'
+import { MovieCard } from '@/components/movie/MovieCard'
 import type { MovieSearchResult } from '@/types/api/movie'
 
-// Mock the FavoritesToggleButton component
-jest.mock('@/components/FavoritesToggleButton', () => ({
-    FavoritesToggleButton: ({ movie }: { movie: MovieSearchResult }) => (
+jest.mock('@/components/movie/FavoritesToggle', () => ({
+    FavoritesToggle: ({ movie }: { movie: MovieSearchResult }) => (
         <button data-testid="favorites-toggle">
             Toggle favorite for {movie.title}
         </button>
@@ -55,7 +54,7 @@ describe('MovieCard', () => {
         expect(screen.getByText('2023')).toBeInTheDocument()
     })
 
-    it('renders FavoritesToggleButton', () => {
+    it('renders FavoritesToggle', () => {
         renderMovieCard()
         expect(screen.getByTestId('favorites-toggle')).toBeInTheDocument()
     })
@@ -63,10 +62,9 @@ describe('MovieCard', () => {
     it('renders links to movie detail page', () => {
         renderMovieCard()
         const links = screen.getAllByRole('link')
-        
-        // Should have two links (image and title) pointing to the same URL
+
         expect(links).toHaveLength(2)
-        links.forEach(link => {
+        links.forEach((link) => {
             expect(link).toHaveAttribute('href', '/movie/123')
         })
     })
@@ -74,14 +72,19 @@ describe('MovieCard', () => {
     it('includes proper schema.org markup', () => {
         renderMovieCard()
         const article = screen.getByRole('article')
-        
+
         expect(article).toHaveAttribute('itemType', 'https://schema.org/Movie')
-        expect(screen.getByText('Test Movie')).toHaveAttribute('itemProp', 'name')
+        expect(screen.getByText('Test Movie')).toHaveAttribute(
+            'itemProp',
+            'name'
+        )
         expect(screen.getByRole('img')).toHaveAttribute('itemProp', 'image')
-        expect(screen.getAllByRole('link')[0]).toHaveAttribute('itemProp', 'url')
-        
-        // Check for meta tag with release date
+        expect(screen.getAllByRole('link')[0]).toHaveAttribute(
+            'itemProp',
+            'url'
+        )
+
         const metaTag = document.querySelector('meta[itemprop="datePublished"]')
         expect(metaTag).toHaveAttribute('content', '2023-01-01')
     })
-}) 
+})

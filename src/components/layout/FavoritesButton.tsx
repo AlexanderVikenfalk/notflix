@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom'
 import CircleHeartIcon from '@/assets/svg/circle-heart.svg?react'
-import { Button } from '@/components/commons/Button'
+import { Button } from '@/components/common/Button'
 
-export const FavoritesPageButton = () => {
+export const FavoritesButton = () => {
     const navigate = useNavigate()
 
     return (

@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { MovieCard } from '@/components/MovieCard'
+import { MovieCard } from '@/components/movie/MovieCard'
 import { MovieCardSkeleton } from '@/components/skeletons/MovieCardSkeleton'
 import { Pagination } from '@/components/pagination/Pagination'
 import type { MovieSearchResult } from '@/types/api/movie'
@@ -21,7 +21,6 @@ export const MovieGridComponent = ({
     onPageChange,
     emptyMessage = 'No movies to display',
 }: Props) => {
-    console.log(movies)
     return (
         <section className="max-w-7xl mx-auto py-7">
             <h1 className="sr-only">
@@ -53,7 +52,6 @@ export const MovieGridComponent = ({
                     ))}
                 </ul>
             )}
-
 
             {!loading && totalPages > 1 && (
                 <div className="mt-6 flex justify-center">
