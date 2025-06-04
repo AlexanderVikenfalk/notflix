@@ -4,15 +4,14 @@ import { searchMovies } from '@/services/movieService'
 import useApi from '@/hooks/useApi'
 import { SearchFilters } from '@/components/search/SearchFilters'
 import { useMovieFilters } from '@/hooks/useMovieFilters'
-import { useSearchParamsManager } from '@/hooks/useSearchParamsManager'
+import { useSearch } from '@/contexts/SearchContext'
 import { SearchHeader } from '@/components/search/SearchHeader'
 import { EmptyState } from '@/components/search/EmptyState'
 import { MovieGrid } from '@/components/movie/MovieGrid'
 import type { MovieSearchResponse } from '@/types/api/movie'
 
 const SearchResultsPage = () => {
-    const { debouncedQuery, page, updatePage, resetToFirstPage } =
-        useSearchParamsManager()
+    const { debouncedQuery, page, setPage, resetToFirstPage } = useSearch()
 
     const { data, request, loading } = useApi<
         MovieSearchResponse,
@@ -81,7 +80,7 @@ const SearchResultsPage = () => {
                         movies={filteredMovies}
                         currentPage={page}
                         totalPages={totalPages}
-                        onPageChange={updatePage}
+                        onPageChange={setPage}
                         loading={loading}
                     />
                 )}
