@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
-import { useSearchParams, useNavigate } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 
 interface SearchContextType {
     query: string
@@ -16,21 +16,14 @@ const SearchContext = createContext<SearchContextType | undefined>(undefined)
 
 export const SearchProvider = ({ children }: { children: ReactNode }) => {
     const [searchParams, setSearchParams] = useSearchParams()
-    const navigate = useNavigate()
 
     const query = searchParams.get('q') || ''
     const [debouncedQuery, setDebouncedQuery] = useState(query)
 
     useEffect(() => {
-        const handler = setTimeout(() => {
-            setDebouncedQuery(query)
-            // Only navigate to search if there's an actual query
-            if (query.trim()) {
-                navigate('/search')
-            }
-        }, 400)
+        const handler = setTimeout(() => setDebouncedQuery(query), 400)
         return () => clearTimeout(handler)
-    }, [query, navigate])
+    }, [query])
 
     const pageParam = parseInt(searchParams.get('page') || '1', 10)
     const page = isNaN(pageParam) || pageParam < 1 ? 1 : pageParam
@@ -53,16 +46,19 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
     }
 
     const setQuery = (value: string) => {
-        setSearchParams((prev) => {
-            const newParams = new URLSearchParams(prev)
-            if (value.trim()) {
+        if (value.trim()) {
+            setSearchParams((prev) => {
+                const newParams = new URLSearchParams(prev)
                 newParams.set('q', value)
-            } else {
+                return newParams
+            })
+        } else {
+            setSearchParams((prev) => {
+                const newParams = new URLSearchParams(prev)
                 newParams.delete('q')
-            }
-            newParams.set('page', '1') // Reset to first page on new search
-            return newParams
-        })
+                return newParams
+            })
+        }
     }
 
     const rawSetQuery = (value: string) => {
