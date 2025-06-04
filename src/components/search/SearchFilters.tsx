@@ -39,6 +39,13 @@ export const SearchFilters = ({
     }
 
     const handleReleaseDateChange = (field: 'from' | 'to', value: string) => {
+        onChange({
+            ...filters,
+            releaseDate: { ...filters.releaseDate, [field]: value },
+        })
+    }
+
+    const handleReleaseDateBlur = (field: 'from' | 'to', value: string) => {
         const currentYear = new Date().getFullYear()
         const clampedValue = clampValue(value, 1900, currentYear + 10)
         onChange({
@@ -209,7 +216,17 @@ export const SearchFilters = ({
                                             e.target.value
                                         )
                                     }
-                                    className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                    onBlur={(e) =>
+                                        handleReleaseDateBlur(
+                                            'from',
+                                            e.target.value
+                                        )
+                                    }
+                                    className={`w-full p-2 border rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                                        isInvalidYearRange
+                                            ? 'border-red-500 dark:border-red-500'
+                                            : 'border-gray-300 dark:border-gray-600'
+                                    }`}
                                 />
                             </div>
                             <span className="text-gray-500 dark:text-gray-400">
@@ -229,10 +246,26 @@ export const SearchFilters = ({
                                             e.target.value
                                         )
                                     }
-                                    className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                    onBlur={(e) =>
+                                        handleReleaseDateBlur(
+                                            'to',
+                                            e.target.value
+                                        )
+                                    }
+                                    className={`w-full p-2 border rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                                        isInvalidYearRange
+                                            ? 'border-red-500 dark:border-red-500'
+                                            : 'border-gray-300 dark:border-gray-600'
+                                    }`}
                                 />
                             </div>
                         </div>
+                        {isInvalidYearRange && (
+                            <p className="mt-2 text-sm text-red-600 dark:text-red-400">
+                                &lsquo;To year&rsquo; must be greater than or
+                                equal to &lsquo;From year&rsquo;
+                            </p>
+                        )}
                     </div>
 
                     <div className="p-4 border-b border-gray-100 dark:border-gray-700">
@@ -259,7 +292,11 @@ export const SearchFilters = ({
                                             e.target.value
                                         )
                                     }
-                                    className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                    className={`w-full p-2 border rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                                        isInvalidRatingRange
+                                            ? 'border-red-500 dark:border-red-500'
+                                            : 'border-gray-300 dark:border-gray-600'
+                                    }`}
                                 />
                             </div>
                             <span className="text-gray-500 dark:text-gray-400">
@@ -277,10 +314,20 @@ export const SearchFilters = ({
                                     onChange={(e) =>
                                         handleRatingChange('to', e.target.value)
                                     }
-                                    className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                    className={`w-full p-2 border rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                                        isInvalidRatingRange
+                                            ? 'border-red-500 dark:border-red-500'
+                                            : 'border-gray-300 dark:border-gray-600'
+                                    }`}
                                 />
                             </div>
                         </div>
+                        {isInvalidRatingRange && (
+                            <p className="mt-2 text-sm text-red-600 dark:text-red-400">
+                                Maximum rating must be greater than or equal to
+                                minimum rating
+                            </p>
+                        )}
                     </div>
 
                     <div className="p-4 flex justify-end">
