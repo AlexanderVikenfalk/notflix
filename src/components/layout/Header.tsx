@@ -1,8 +1,8 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { SearchInput } from '../search/SearchInput'
-import { ThemeSwitcher } from '../common/ThemeSwitcher'
-import { FavoritesButton } from './FavoritesButton'
+import { SearchInput } from '@/components/search/SearchInput'
+import { ThemeSwitcher } from '@/components/common/ThemeSwitcher'
+import { FavoritesButton } from '@/components/layout/FavoritesButton'
 import { useSearch } from '@/contexts/SearchContext'
 
 export const Header = () => {

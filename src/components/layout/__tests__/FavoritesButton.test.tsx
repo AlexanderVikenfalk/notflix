@@ -23,9 +23,9 @@ jest.mock('@/components/common/Button', () => ({
 
 import { render, screen, fireEvent } from '@testing-library/react'
 import { useNavigate } from 'react-router-dom'
-import { FavoritesButton } from '../FavoritesButton'
+import { FavoritesButton } from '@/components/layout//FavoritesButton'
 
-jest.mock('../FavoritesButton', () => {
+jest.mock('@/components/layout/FavoritesButton', () => {
     const MockButton = ({
         children,
         onClick,

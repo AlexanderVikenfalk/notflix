@@ -24,7 +24,7 @@ jest.mock('@/contexts/SearchContext', () => ({
     useSearch: jest.fn(),
 }))
 
-jest.mock('../../search/SearchInput', () => ({
+jest.mock('@/components/search/SearchInput', () => ({
     SearchInput: ({
         value,
         onChange,
@@ -42,11 +42,11 @@ jest.mock('../../search/SearchInput', () => ({
     ),
 }))
 
-jest.mock('../../common/ThemeSwitcher', () => ({
+jest.mock('@/components/common/ThemeSwitcher', () => ({
     ThemeSwitcher: () => <button data-testid="theme-switcher">Theme</button>,
 }))
 
-jest.mock('../FavoritesButton', () => ({
+jest.mock('@/components/layout/FavoritesButton', () => ({
     FavoritesButton: () => (
         <button data-testid="favorites-button">Favorites</button>
     ),
