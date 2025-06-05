@@ -12,19 +12,19 @@
 
 ```
 notflix/
-├── public/                     # Static assets and mock data
+├── public/                     # Static assets (e.g. mock data, images, favicon)
 ├── src/
-│   ├── assets/                 # Icons and SVGs
-│   ├── components/             # Reusable UI components (Button, Loader, etc.)
-│   ├── contexts/               # Context providers (e.g. Favorites, Search)
-│   ├── hooks/                  # Custom React hooks
-│   ├── pages/                  # Route components (Home, SearchResults, MovieDetails, Favorites)
-│   ├── services/               # API simulation and logic
-│   ├── types/                  # TypeScript type definitions
-│   ├── utils/                  # Utilities and helpers
+│   ├── assets/                 # Icons, SVGs, and images used in the app
+│   ├── components/             # Reusable UI components (e.g. Button, Loader)
+│   ├── contexts/               # React Context providers (e.g. FavoritesContext, SearchContext)
+│   ├── hooks/                  # Custom React hooks (e.g. useDebounce, useFilters)
+│   ├── pages/                  # Top-level route components (Home, SearchResults, MovieDetails, Favorites)
+│   ├── services/               # API logic and mock handlers (e.g. movieService, msw handlers)
+│   ├── types/                  # TypeScript type definitions and interfaces
+│   ├── utils/                  # Utility functions and helpers (e.g. formatting, constants)
 │   ├── tests/                  # Unit and integration tests (Jest)
-│   ├── playwrightTests/        # E2E tests (Playwright)
-│   └── main.tsx                # App entrypoint
+│   ├── playwrightTests/        # End-to-end tests (Playwright)
+│   └── main.tsx                # Application entry point
 ```
 
 ---
@@ -40,7 +40,7 @@ notflix/
 ## Main Technologies & Design Decisions
 
 ### React 19
-The app is built with modern React using functional components and hooks like `useEffect`, `useReducer`, `useContext`, `useMemo`.
+The app is built with modern React using functional components and hooks like `useEffect`, `useReducer`, `useContext` and `useMemo`.
 
 ### React Router v6+
 Routing is handled via `react-router-dom`. The app includes:
@@ -99,6 +99,7 @@ Used to mock API responses and decouple the UI from a live backend.
 - Split large components into smaller ones (e.g., SearchFilterPanel)
 - Store only movie IDs in favorites instead of full objects (improves memory usage and speed)
 - Optionally use a state manager like `jotai` for certain contexts
+- [ZOD](https://zod.dev/) for creating runtime type safety and for transforming to and from backend data structure.
 
 ### Styling & Assets
 

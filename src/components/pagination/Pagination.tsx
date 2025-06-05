@@ -2,9 +2,9 @@ import Chevron from '@/assets/svg/chevron.svg?react'
 import ChevronDouble from '@/assets/svg/chevron-double.svg?react'
 import { getVisiblePages } from '@/utils/paginationUtils'
 import { usePagination } from '@/hooks/usePagination'
-import { PaginationButton } from './PaginationButton'
-import { PaginationNumbers } from './PaginationNumbers'
-import { PaginationInfo } from './PaginationInfo'
+import { PaginationButton } from '@/components/pagination/PaginationButton'
+import { PaginationNumbers } from '@/components/pagination/PaginationNumbers'
+import { PaginationInfo } from '@/components/pagination/PaginationInfo'
 
 interface PaginationProps {
     page: number

@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
 import { MovieGrid } from '@/components/movie/MovieGrid'
 import type { MovieSearchResult } from '@/types/api/movie'
-import userEvent from '@testing-library/user-event'
 
 jest.mock('@/components/movie/MovieCard', () => ({
     MovieCard: ({ movie }: { movie: MovieSearchResult }) => (

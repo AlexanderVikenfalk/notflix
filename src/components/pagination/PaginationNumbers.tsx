@@ -1,4 +1,4 @@
-import { PaginationButton } from './PaginationButton'
+import { PaginationButton } from '@/components/pagination/PaginationButton'
 
 interface PaginationNumbersProps {
     visiblePages: (number | 'ellipsis')[]

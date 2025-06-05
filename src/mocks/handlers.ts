@@ -1,5 +1,5 @@
 import { delay, http, HttpResponse } from 'msw'
-import { movieDetails, movieSearchResponse } from './data'
+import { movieDetails, movieSearchResponse } from '@/mocks/data'
 
 export const handlers = [
     http.get('http://localhost:3000/movies', async ({ request }) => {

@@ -1,5 +1,0 @@
-export { default as MovieListPage } from './MovieListPage'
-export { default as MovieDetailsPage } from './MovieDetailsPage'
-export { default as FavoritesPage } from './FavoritesPage'
-export { default as SearchResultsPage } from './SearchResultsPage'
-export { default as NotFoundPage } from './NotFoundPage'
