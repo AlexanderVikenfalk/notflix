@@ -12,7 +12,7 @@ const MovieCardComponent = ({ movie }: MovieCardProps) => {
 
     return (
         <article
-            className="relative "
+            className="text-center text-sm group relative"
             itemScope
             itemType="https://schema.org/Movie"
         >
@@ -22,7 +22,7 @@ const MovieCardComponent = ({ movie }: MovieCardProps) => {
 
             <Link
                 to={`/movie/${movie.id}`}
-                className="block overflow-hidden focus-visible:ring-2 transition-shadow"
+                className="block w-full h-[300px] bg-slate-300 dark:bg-slate-700 rounded-md overflow-hidden"
                 itemProp="url"
             >
                 <img
@@ -33,23 +33,22 @@ const MovieCardComponent = ({ movie }: MovieCardProps) => {
                     onError={(e) => {
                         e.currentTarget.src = '/assets/images/placeholder.webp'
                     }}
-                    className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-110  object-cover transition-transform duration-300 ease-in-out hover:scale-105 will-change-transform"
+                    className="w-full h-full object-cover transition-transform duration-300 ease-in-out hover:scale-105 will-change-transform"
                 />
             </Link>
 
-            <div className="p-3">
-                <Link
-                    to={`/movie/${movie.id}`}
-                    className="block mt-2 font-semibold text-gray-900 dark:text-white truncate focus-visible:ring-2"
-                    itemProp="name"
-                >
-                    {movie.title}
-                </Link>
-                <meta itemProp="datePublished" content={movie.release_date} />
-                <p className="text-gray-500 dark:text-gray-400 text-xs">
-                    {releaseYear}
-                </p>
-            </div>
+            <Link
+                to={`/movie/${movie.id}`}
+                className="block mt-2 font-semibold text-gray-900 dark:text-white truncate focus-visible:ring-2 w-3/4 mx-auto"
+                itemProp="name"
+            >
+                {movie.title}
+            </Link>
+            <meta itemProp="datePublished" content={movie.release_date} />
+
+            <p className="mt-1 text-gray-500 dark:text-gray-400 text-xs w-1/4 mx-auto">
+                {releaseYear}
+            </p>
         </article>
     )
 }

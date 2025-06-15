@@ -34,7 +34,7 @@ const MovieDetailsPage = () => {
                             '/assets/images/placeholder.webp'
                         }
                         alt={movie.title}
-                        className="w-full rounded-lg shadow-lg"
+                        className="w-full h-[550px] rounded-lg object-cover bg-white dark:bg-gray-900 text-transparent"
                         loading="lazy"
                         onError={(e) => {
                             e.currentTarget.src =
@@ -43,16 +43,16 @@ const MovieDetailsPage = () => {
                     />
                 </div>
 
-                <div className="lg:col-span-2">
-                    <h1 className="text-4xl font-bold mb-2">{movie.title}</h1>
+                <div className="lg:col-span-2 space-y-4">
+                    <h1 className="text-4xl font-bold">{movie.title}</h1>
 
                     {movie.director && (
-                        <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">
+                        <p className="text-lg text-gray-600 dark:text-gray-300">
                             Directed by {movie.director}
                         </p>
                     )}
 
-                    <div className="flex flex-wrap gap-4 text-sm text-gray-500 dark:text-gray-400 mb-6">
+                    <div className="flex flex-wrap gap-3 text-sm text-gray-500 dark:text-gray-400">
                         {movie.release_date && (
                             <span>
                                 {new Date(movie.release_date).getFullYear()}
@@ -69,7 +69,7 @@ const MovieDetailsPage = () => {
                         ))}
                     </div>
 
-                    <div className="flex items-center gap-3 mb-6">
+                    <div className="flex items-center gap-4">
                         {movie.vote_average && (
                             <span className="text-yellow-600 dark:text-yellow-400 font-semibold text-lg">
                                 {movie.vote_average.toFixed(1)}
@@ -82,17 +82,21 @@ const MovieDetailsPage = () => {
                         )}
                     </div>
 
-                    <div className="mb-4">
+                    <div>
                         <FavoritesToggle movie={movie} />
                     </div>
 
-                    <p className="text-base leading-relaxed text-gray-700 dark:text-gray-200 mb-6">
-                        {movie.overview}
-                    </p>
+                    <div className="space-y-2">
+                        <p className="text-base leading-relaxed text-gray-700 dark:text-gray-200">
+                            {movie.overview}
+                        </p>
+                    </div>
 
                     {Array.isArray(movie.cast) && movie.cast.length > 0 && (
-                        <div className="mb-4">
-                            <h2 className="text-lg font-semibold mb-1">Cast</h2>
+                        <div>
+                            <h2 className="text-lg font-semibold mb-1">
+                                Cast
+                            </h2>
                             <p className="text-gray-600 dark:text-gray-300 text-sm">
                                 {movie.cast.join(', ')}
                             </p>
@@ -100,7 +104,7 @@ const MovieDetailsPage = () => {
                     )}
 
                     {movie.imdb_id && (
-                        <div className="mt-6">
+                        <div>
                             <a
                                 href={`https://www.imdb.com/title/${movie.imdb_id}`}
                                 target="_blank"
@@ -116,5 +120,6 @@ const MovieDetailsPage = () => {
         </main>
     )
 }
+
 
 export default MovieDetailsPage
