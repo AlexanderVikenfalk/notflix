@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Chevron from '@/assets/svg/chevron.svg?react'
 import { GENRE_NAMES, type GenreName } from '@/constants/filtering.ts'
 import { Button } from '@/components/common/Button'
-import type { Filters } from '@/types/filters'
+import type { Filters } from '@/types/ui/filters'
 
 interface SearchFilterPanelProps {
     filters: Filters
