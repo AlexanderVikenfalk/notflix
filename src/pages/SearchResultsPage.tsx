@@ -34,8 +34,10 @@ const SearchResultsPage = () => {
     useTitle(`Search results for "${debouncedQuery}"`)
 
     useEffect(() => {
-        resetFilters()
-        resetToFirstPage()
+        if (!debouncedQuery) {
+            resetFilters()
+            resetToFirstPage()
+        }
     }, [debouncedQuery])
 
     useEffect(() => {
