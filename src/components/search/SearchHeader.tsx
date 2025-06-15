@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 
 interface SearchHeaderProps {
-    queryTerm: string
+    queryTerm: string | undefined,
     loading: boolean
     resultsCount: number
     hasActiveFilters: boolean
@@ -14,6 +14,8 @@ export function SearchHeader({
     hasActiveFilters,
 }: SearchHeaderProps) {
     const getResultsText = (): ReactNode => {
+        if (!queryTerm && !loading) return null
+
         if (loading) return 'Searching...'
 
         if (resultsCount > 0) {
