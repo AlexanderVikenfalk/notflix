@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test'
 
 test.describe('Application', () => {
     test.beforeEach(async ({ page }) => {
-        await page.goto('http://localhost:5173/')
+        await page.goto('/')
         await expect(page.getByRole('article')).toHaveCount(20)
     })
 
@@ -44,7 +44,7 @@ test.describe('Application', () => {
         });
 
         test('add to "my favorites" and remove again', async ({ page }) => {
-            await page.goto('http://localhost:5173/');
+            await page.goto('/');
             await page.getByRole('article').filter({ hasText: 'Until Dawn2025' }).getByLabel('Add to favorites').click();
             await page.getByRole('button', { name: 'Favorites', exact: true }).click();
 
@@ -69,5 +69,37 @@ test.describe('Application', () => {
         await expect(page.getByRole('heading', { name: 'No movies match your filters' })).toBeVisible();
         await page.getByRole('button', { name: 'Clear all filters' }).click();
         await expect(page.getByText('A Minecraft Movie')).toBeVisible();
+    })
+
+    test.describe('Search filters via direct URL', () => {
+        test('should show 1 result for query only', async ({ page }) => {
+            await page.goto('/search?page=1&q=lilo')
+            const results = page.getByRole('article')
+            await expect(results).toHaveCount(1)
+        })
+
+        test('should show 0 results for year range filter', async ({ page }) => {
+            await page.goto('/search?page=1&q=lilo&yearFrom=2000&yearTo=2001')
+            const results = page.getByRole('article')
+            await expect(results).toHaveCount(0)
+        })
+
+        test('should show 0 results for incorrect genre filter', async ({ page }) => {
+            await page.goto('/search?page=1&q=lilo&genres=Action')
+            const results = page.getByRole('article')
+            await expect(results).toHaveCount(0)
+        })
+
+        test('should show 0 results for low rating filter', async ({ page }) => {
+            await page.goto('/search?page=1&q=lilo&ratingFrom=1&ratingTo=2')
+            const results = page.getByRole('article')
+            await expect(results).toHaveCount(0)
+        })
+
+        test('should show 1 result with full valid filter combination', async ({ page }) => {
+            await page.goto('/search?page=1&q=lilo&genres=Comedy&yearFrom=2000&yearTo=2025&ratingFrom=7&ratingTo=8')
+            const results = page.getByRole('article')
+            await expect(results).toHaveCount(1)
+        })
     })
 }) 
