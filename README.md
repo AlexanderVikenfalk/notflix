@@ -23,7 +23,7 @@ notflix/
 │   ├── types/                  # TypeScript type definitions and interfaces
 │   ├── utils/                  # Utility functions and helpers (e.g. formatting, constants)
 │   ├── tests/                  # Unit and integration tests (Jest)
-│   ├── playwrightTests/        # End-to-end tests (Playwright)
+│   ├── playwright/        # End-to-end tests (Playwright)
 │   └── main.tsx                # Application entry point
 ```
 
@@ -67,7 +67,7 @@ Used to mock API responses and decouple the UI from a live backend.
 
 ### Testing Setup
 - **Jest + React Testing Library**: For unit/integration tests. (located in the /components structure per feature e.g /components/layout/__tests__)
-- **Playwright**: For end-to-end tests (located in `playwrightTests/`, files suffixed with `.playwright.test.ts` to avoid Jest conflict).
+- **Playwright**: For end-to-end tests (located in `playwright/`, files suffixed with `.playwright.test.ts` to avoid Jest conflict).
 
 ---
 

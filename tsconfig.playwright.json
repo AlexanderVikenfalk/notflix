@@ -6,5 +6,7 @@
     "target": "ESNext",
     "module": "ESNext"
   },
-  "include": ["playwrightTests/**/*.ts"]
+  "include": [
+    "playwright/**/*.ts"
+  ]
 }

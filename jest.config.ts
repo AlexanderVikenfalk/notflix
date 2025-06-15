@@ -9,7 +9,7 @@ export default {
         "^.+\\.(svg)$": "<rootDir>/src/__mocks__/svgMock.tsx",
     },
     testPathIgnorePatterns: [
-        '<rootDir>/playwrightTests/',
+        '<rootDir>/playwright/',
     ],
     testRegex: '((?!\\.playwright).)*\\.test\\.tsx?$',
     transform: {
