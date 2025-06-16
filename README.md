@@ -23,18 +23,9 @@ notflix/
 │   ├── types/                  # TypeScript type definitions and interfaces
 │   ├── utils/                  # Utility functions and helpers (e.g. formatting, constants)
 │   ├── tests/                  # Unit tests (Jest)
-│   ├── playwright/        # End-to-end tests (Playwright)
+│   ├── playwright/             # End-to-end tests (Playwright)
 │   └── main.tsx                # Application entry point
 ```
-
----
-
-## Requirements
-
-- Node.js: `>=18`
-- Package Manager: `yarn`
-- Browser: Modern Chromium-based browser (for full testing and feature coverage)
-
 ---
 
 ## Main Technologies & Design Decisions
@@ -108,19 +99,16 @@ Used to mock API responses and decouple the UI from a live backend.
 - Add view transition animations using [View Transitions](https://css-tricks.com/toe-dipping-into-view-transitions/)
 
 ### Testing
-
-- Add component-level tests (e.g., MovieCard)
-- Add E2E flow: search → select movie → favorite → view favorites page
+- Add integration tests
+- Add more unit tests 
+- Add more E2E tests
 - Improve CI setup for cross-browser testing (headless & headed)
-
-## Notes
-- The application is not deployed as it uses a mocked backend
 
 ---
 # Getting Started
 ## Prerequisites
 - Node.js ≥ 18
-- npm ≥ 9
+- Package Manager: `yarn` or `npm` 
 - Modern browser (Chrome, Firefox, Safari)
 
 ## Installation
