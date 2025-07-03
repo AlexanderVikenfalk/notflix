@@ -28,9 +28,9 @@ export const ThemeSwitcher = () => {
             variant="icon"
             title="Toggle theme"
             aria-label="Toggle theme"
-            className="p-2"
+            className="p-2 transition-transform duration-200 ease-in-out"
         >
-            <span className="block transition-transform duration-200 ease-in-out">
+            <span className="block">
                 {isDarkMode ? (
                     <SunIcon className="w-5 h-5" />
                 ) : (
